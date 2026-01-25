@@ -1,0 +1,1402 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mute Ecosystem - Современная кибербезопасность</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0ea5e9;
+            --primary-dark: #0284c7;
+            --secondary: #7c3aed;
+            --dark: #0f172a;
+            --dark-light: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--light);
+            background-color: var(--dark);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background-color: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(100, 116, 139, 0.2);
+            transition: all 0.3s ease;
+        }
+        
+        .header-scrolled {
+            padding: 5px 0;
+            background-color: rgba(15, 23, 42, 0.98);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .logo i {
+            color: var(--primary);
+            font-size: 24px;
+        }
+        
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+        }
+        
+        .logo-subtitle {
+            font-size: 10px;
+            color: var(--gray);
+            font-weight: 400;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            position: relative;
+            font-size: 15px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            left: 0;
+            bottom: -5px;
+            transition: width 0.3s;
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .mobile-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 999;
+        }
+        
+        .hero {
+            padding: 160px 0 100px;
+            background: radial-gradient(circle at 20% 50%, rgba(14, 165, 233, 0.15) 0%, transparent 40%),
+                        radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.1) 0%, transparent 40%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            text-align: center;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .hero h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1.2;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 40px;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.7;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 16px 38px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(14, 165, 233, 0.4);
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+            position: relative;
+            padding: 0 15px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--light);
+            display: inline-block;
+            position: relative;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            bottom: -18px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            max-width: 700px;
+            margin: 30px auto 50px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            padding: 0 15px;
+        }
+        
+        .ecosystem {
+            padding: 100px 0;
+        }
+        
+        .category-section {
+            margin-bottom: 80px;
+            padding: 0 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .category-title {
+            font-size: 1.8rem;
+            margin-bottom: 35px;
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-align: center;
+        }
+        
+        .category-title i {
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+        
+        .ecosystem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 30px;
+            width: 100%;
+            justify-items: center;
+        }
+        
+        .centered-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            width: 100%;
+        }
+        
+        .ecosystem-card {
+            background-color: var(--dark-light);
+            border-radius: 16px;
+            padding: 35px 30px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            width: 100%;
+            max-width: 380px;
+            text-align: center;
+        }
+        
+        .ecosystem-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+            border-color: rgba(14, 165, 233, 0.3);
+        }
+        
+        .ecosystem-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(124, 58, 237, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 32px;
+            color: var(--primary);
+            transition: all 0.3s;
+        }
+        
+        .ecosystem-card:hover .card-icon {
+            transform: scale(1.1);
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(124, 58, 237, 0.2));
+        }
+        
+        .ecosystem-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--light);
+            line-height: 1.3;
+        }
+        
+        .ecosystem-card p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+        
+        .card-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s;
+            padding: 10px 20px;
+            border-radius: 50px;
+            background: rgba(14, 165, 233, 0.1);
+            width: fit-content;
+            margin: 0 auto;
+        }
+        
+        .card-link:hover {
+            gap: 12px;
+            background: rgba(14, 165, 233, 0.2);
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 5px 14px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .badge-github {
+            background-color: rgba(24, 23, 23, 0.3);
+            color: #f0f6fc;
+            border: 1px solid #30363d;
+        }
+        
+        .badge-service {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+        
+        .badge-social {
+            background-color: rgba(14, 165, 233, 0.1);
+            color: #0ea5e9;
+            border: 1px solid rgba(14, 165, 233, 0.3);
+        }
+        
+        .features {
+            padding: 100px 0;
+            background-color: rgba(15, 23, 42, 0.7);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 50px;
+            margin-top: 50px;
+            padding: 0 15px;
+        }
+        
+        .feature-item {
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+        }
+        
+        .feature-icon {
+            flex-shrink: 0;
+            width: 65px;
+            height: 65px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+        }
+        
+        .feature-content h3 {
+            font-size: 1.35rem;
+            margin-bottom: 12px;
+            color: var(--light);
+        }
+        
+        .feature-content p {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+        
+        .services {
+            padding: 100px 0;
+        }
+        
+        .service-card {
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.05), rgba(124, 58, 237, 0.05));
+            border-radius: 18px;
+            padding: 45px;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            margin-top: 30px;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+        
+        .service-card h3 {
+            font-size: 1.9rem;
+            margin-bottom: 25px;
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .service-card h3 i {
+            color: var(--primary);
+        }
+        
+        .service-card p {
+            color: var(--gray);
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        .service-card ul {
+            list-style: none;
+            margin: 0 auto 30px;
+            max-width: 700px;
+            text-align: left;
+        }
+        
+        .service-card ul li {
+            margin-bottom: 16px;
+            color: var(--gray);
+            position: relative;
+            padding-left: 30px;
+            line-height: 1.6;
+        }
+        
+        .service-card ul li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .contact-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 14px 35px;
+            background-color: transparent;
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            transition: all 0.3s;
+            border: 2px solid var(--primary);
+        }
+        
+        .contact-button:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3);
+        }
+        
+        .contact-section {
+            padding: 100px 0;
+        }
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            padding: 0 15px;
+            justify-items: center;
+        }
+        
+        .contact-card {
+            background-color: var(--dark-light);
+            border-radius: 16px;
+            padding: 35px 30px;
+            text-align: center;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            transition: all 0.3s;
+            width: 100%;
+            max-width: 380px;
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(14, 165, 233, 0.3);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+        }
+        
+        .contact-icon {
+            width: 85px;
+            height: 85px;
+            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(124, 58, 237, 0.1));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 38px;
+            color: var(--primary);
+        }
+        
+        .contact-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--light);
+        }
+        
+        .contact-card p {
+            color: var(--gray);
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+        
+        .contact-link {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: rgba(14, 165, 233, 0.1);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .contact-link:hover {
+            background-color: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+            background: radial-gradient(circle at 70% 30%, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 30% 70%, rgba(124, 58, 237, 0.1) 0%, transparent 50%);
+        }
+        
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--light);
+            padding: 0 15px;
+        }
+        
+        .cta-section p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto 40px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            padding: 0 15px;
+        }
+        
+        footer {
+            background-color: var(--dark-light);
+            padding: 70px 0 30px;
+            border-top: 1px solid rgba(100, 116, 139, 0.2);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+        
+        .footer-info {
+            flex: 1;
+            min-width: 300px;
+            padding: 0 15px;
+        }
+        
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--light);
+            margin-bottom: 20px;
+        }
+        
+        .footer-logo i {
+            color: var(--primary);
+        }
+        
+        .footer-info p {
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 25px;
+            max-width: 350px;
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .footer-links-column {
+            min-width: 180px;
+            padding: 0 15px;
+        }
+        
+        .footer-links-column h4 {
+            font-size: 1.15rem;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+        
+        .footer-links-column ul {
+            list-style: none;
+        }
+        
+        .footer-links-column ul li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links-column ul li a {
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+        
+        .footer-links-column ul li a:hover {
+            color: var(--primary);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        
+        .social-links a {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background-color: rgba(100, 116, 139, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 18px;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--primary);
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        .copyright {
+            text-align: center;
+            color: var(--gray);
+            padding-top: 30px;
+            border-top: 1px solid rgba(100, 116, 139, 0.2);
+            font-size: 0.9rem;
+            padding: 30px 15px 0;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+        
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s, transform 0.8s;
+        }
+        
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        @media (max-width: 1100px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.3rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+                max-width: 700px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2.6rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .service-card {
+                padding: 35px 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                width: 280px;
+                height: 100%;
+                background-color: var(--dark);
+                flex-direction: column;
+                padding: 100px 30px 30px;
+                transition: right 0.4s ease;
+                z-index: 1000;
+                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .mobile-menu-overlay.active {
+                display: block;
+            }
+            
+            .hero {
+                padding: 140px 0 80px;
+            }
+            
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2::after {
+                width: 70px;
+                bottom: -16px;
+            }
+            
+            .ecosystem-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .ecosystem-card {
+                padding: 30px 25px;
+            }
+            
+            .category-title {
+                font-size: 1.6rem;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-info {
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .footer-info p {
+                max-width: 100%;
+            }
+            
+            .social-links {
+                justify-content: center;
+            }
+            
+            .footer-links {
+                justify-content: center;
+                text-align: center;
+            }
+            
+            .footer-links-column {
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero {
+                padding: 130px 0 70px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2::after {
+                width: 60px;
+                height: 3px;
+                bottom: -14px;
+            }
+            
+            .section-subtitle {
+                font-size: 1rem;
+                margin: 25px auto 40px;
+            }
+            
+            .cta-button {
+                padding: 14px 30px;
+                font-size: 1rem;
+            }
+            
+            .category-title {
+                font-size: 1.5rem;
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .ecosystem-card {
+                padding: 25px 20px;
+            }
+            
+            .ecosystem-card h3 {
+                font-size: 1.4rem;
+            }
+            
+            .card-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 28px;
+            }
+            
+            .service-card {
+                padding: 25px 20px;
+            }
+            
+            .service-card h3 {
+                font-size: 1.6rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .contact-card {
+                padding: 25px 20px;
+            }
+            
+            .contact-icon {
+                width: 75px;
+                height: 75px;
+                font-size: 32px;
+            }
+            
+            .contact-card h3 {
+                font-size: 1.4rem;
+            }
+            
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+            
+            .cta-section p {
+                font-size: 1rem;
+            }
+            
+            .feature-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .feature-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+            }
+            
+            .feature-content h3 {
+                font-size: 1.3rem;
+            }
+            
+            .logo-text {
+                align-items: flex-start;
+            }
+            
+            .logo-subtitle {
+                font-size: 9px;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.7rem;
+            }
+            
+            .ecosystem-card {
+                padding: 22px 18px;
+            }
+            
+            .contact-card {
+                padding: 22px 18px;
+            }
+            
+            .card-link {
+                padding: 8px 16px;
+                font-size: 0.95rem;
+            }
+            
+            .contact-link {
+                padding: 10px 22px;
+                font-size: 0.95rem;
+            }
+            
+            .contact-button {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            .footer-links-column {
+                min-width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="container">
+            <div class="nav-container">
+                <a href="#" class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <div class="logo-text">
+                        <span>Mute Ecosystem</span>
+                        <span class="logo-subtitle">КИБЕРБЕЗОПАСНОСТЬ</span>
+                    </div>
+                </a>
+                
+                <div class="nav-links">
+                    <a href="#ecosystem">Экосистема</a>
+                    <a href="#services">Услуги</a>
+                    <a href="#contact">Контакты</a>
+                    <a href="#cta">Начать</a>
+                </div>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="fade-in">Mute Ecosystem</h1>
+                <p class="fade-in">Полноценная экосистема для кибербезопасности и анализа уязвимостей. Инструменты для сканирования, мониторинга CVE и защиты ваших систем.</p>
+                <a href="#ecosystem" class="cta-button fade-in">Исследовать экосистему</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="ecosystem" class="ecosystem">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Компоненты экосистемы</h2>
+            </div>
+            
+            <p class="section-subtitle fade-in">Все инструменты и ресурсы экосистемы Mute для анализа уязвимостей, сканирования и кибербезопасности</p>
+            
+            <div class="category-section fade-in">
+                <h3 class="category-title"><i class="fas fa-laptop-code"></i> Репозитории на GitHub</h3>
+                <div class="centered-grid">
+                    <div class="ecosystem-card">
+                        <div class="card-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <h3>FullMute Scanner<span class="badge badge-github">GitHub</span></h3>
+                        <p>Сканирование веб-сайтов, IoT устройств, поиск чувствительных файлов и проверка на CVE. Поддерживает различные цели и типы сканирования.</p>
+                        <a href="https://github.com/a11mut3d/FullMute" target="_blank" class="card-link">Открыть репозиторий <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    
+                    <div class="ecosystem-card">
+                        <div class="card-icon">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <h3>Telegrambot MITM Proxy<span class="badge badge-github">GitHub</span></h3>
+                        <p>Прокси-сервер для анализа трафика Telegram ботов. Позволяет исследовать взаимодействие ботов с API и выявлять потенциальные уязвимости.</p>
+                        <a href="https://github.com/a11mut3d/Telegrambot-MITM" target="_blank" class="card-link">Открыть репозиторий <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-section fade-in">
+                <h3 class="category-title"><i class="fas fa-bullhorn"></i> Социальные сети и контент</h3>
+                <div class="centered-grid">
+                    <div class="ecosystem-card">
+                        <div class="card-icon">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <h3>Telegram Блог<span class="badge badge-social">Контент</span></h3>
+                        <p>Центральный источник информации экосистемы. Статьи, руководства, разборы уязвимостей и последние новости о кибербезопасности.</p>
+                        <a href="https://t.me/rootlocalhostvibe" target="_blank" class="card-link">Перейти в блог <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    
+                    <div class="ecosystem-card">
+                        <div class="card-icon">
+                            <i class="fab fa-tiktok"></i>
+                        </div>
+                        <h3>TikTok Аккаунт<span class="badge badge-social">Контент</span></h3>
+                        <p>Обучающий контент по кибербезопасности, разборы уязвимостей и практические советы по защите ваших систем в формате коротких видео.</p>
+                        <a href="https://www.tiktok.com/@kunideveloper" target="_blank" class="card-link">Перейти в TikTok <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="category-section fade-in">
+                <h3 class="category-title"><i class="fas fa-robot"></i> Автоматизация и боты</h3>
+                <div class="centered-grid">
+                    <div class="ecosystem-card">
+                        <div class="card-icon">
+                            <i class="fab fa-telegram"></i>
+                        </div>
+                        <h3>Mute CVE Бот<span class="badge badge-social">Бот</span></h3>
+                        <p>Бот, который отслеживает новые уязвимости (CVE) в реальном времени. Настраиваемые уведомления и детальная информация по каждой уязвимости.</p>
+                        <a href="https://t.me/muteCVE_bot" target="_blank" class="card-link">Добавить бота <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Профессиональные услуги</h2>
+            </div>
+            
+            <div class="service-card fade-in">
+                <h3><i class="fas fa-user-secret"></i> Пентест на заказ</h3>
+                <p>Предоставляю профессиональные услуги по тестированию на проникновение (пентест) для различных систем и приложений. Комплексная проверка безопасности с подробным отчетом и рекомендациями по устранению уязвимостей.</p>
+                
+                <h4 style="margin-top: 25px; margin-bottom: 15px; color: var(--light);">Что включают услуги:</h4>
+                <ul>
+                    <li>Тестирование веб-приложений на уязвимости</li>
+                    <li>Анализ безопасности сетевой инфраструктуры</li>
+                    <li>Проверка мобильных приложений (iOS/Android)</li>
+                    <li>Социальная инженерия и фишинг-тестирование</li>
+                    <li>Аудит конфигурации безопасности</li>
+                    <li>Тестирование на проникновение в облачные среды</li>
+                    <li>Подробный отчет с рекомендациями</li>
+                </ul>
+                
+                <a href="http://t.me/KuniDeveloper" target="_blank" class="contact-button">Заказать пентест</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Контакты для связи</h2>
+            </div>
+            
+            <p class="section-subtitle fade-in">Свяжитесь со мной для заказа пентестов, консультаций или сотрудничества</p>
+            
+            <div class="contact-grid">
+                <div class="contact-card fade-in">
+                    <div class="contact-icon">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <h3>Telegram для заказов</h3>
+                    <p>Основной канал связи для заказа пентестов, консультаций и сотрудничества.</p>
+                    <a href="http://t.me/KuniDeveloper" target="_blank" class="contact-link">@KuniDeveloper</a>
+                </div>
+                
+                <div class="contact-card fade-in">
+                    <div class="contact-icon">
+                        <i class="fab fa-github"></i>
+                    </div>
+                    <h3>GitHub профиль</h3>
+                    <p>Исходный код всех проектов, инструментов и утилит экосистемы Mute.</p>
+                    <a href="https://github.com/a11mut3d/" target="_blank" class="contact-link">a11mut3d</a>
+                </div>
+                
+                <div class="contact-card fade-in">
+                    <div class="contact-icon">
+                        <i class="fab fa-telegram"></i>
+                    </div>
+                    <h3>Telegram блог</h3>
+                    <p>Образовательный контент, разборы уязвимостей и новости кибербезопасности.</p>
+                    <a href="https://t.me/rootlocalhostvibe" target="_blank" class="contact-link">@rootlocalhostvibe</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2>Ключевые возможности</h2>
+            </div>
+            
+            <p class="section-subtitle fade-in">Преимущества использования экосистемы Mute для вашей кибербезопасности</p>
+            
+            <div class="features-grid">
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Комплексная защита</h3>
+                        <p>Интеграция всех компонентов обеспечивает многоуровневую защиту ваших систем и приложений.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Высокая скорость</h3>
+                        <p>Оптимизированные алгоритмы сканирования и анализа работают быстро даже с большими объемами данных.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync-alt"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Автоматическое обновление</h3>
+                        <p>Базы CVE и сигнатур уязвимостей обновляются автоматически для максимальной актуальности.</p>
+                    </div>
+                </div>
+                
+                <div class="feature-item fade-in">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="feature-content">
+                        <h3>Детальная аналитика</h3>
+                        <p>Подробные отчеты и визуализация результатов сканирования для быстрого анализа угроз.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="cta" class="cta-section">
+        <div class="container">
+            <h2 class="fade-in">Начните использовать Mute Ecosystem сегодня</h2>
+            <p class="fade-in">Присоединяйтесь к сообществу специалистов по кибербезопасности. Получите доступ ко всем инструментам экосистемы и начните защищать свои системы от угроз.</p>
+            <a href="#ecosystem" class="cta-button fade-in">Исследовать экосистему</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-info">
+                    <div class="footer-logo">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Mute Ecosystem</span>
+                    </div>
+                    <p>Современная экосистема для кибербезопасности и анализа уязвимостей. Инструменты для сканирования, мониторинга CVE и защиты систем.</p>
+                    <div class="social-links">
+                        <a href="https://github.com/a11mut3d/" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="http://t.me/KuniDeveloper" target="_blank" title="Telegram для заказов"><i class="fab fa-telegram"></i></a>
+                        <a href="https://t.me/rootlocalhostvibe" target="_blank" title="Telegram блог"><i class="fab fa-telegram"></i></a>
+                        <a href="https://www.tiktok.com/@kunideveloper" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <div class="footer-links-column">
+                        <h4>Инструменты</h4>
+                        <ul>
+                            <li><a href="https://github.com/a11mut3d/FullMute" target="_blank">FullMute Scanner</a></li>
+                            <li><a href="https://github.com/a11mut3d/Telegrambot-MITM" target="_blank">MITM прокси</a></li>
+                            <li><a href="https://t.me/muteCVE_bot" target="_blank">CVE Бот</a></li>
+                            <li><a href="#">Документация</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-links-column">
+                        <h4>Контент</h4>
+                        <ul>
+                            <li><a href="https://t.me/rootlocalhostvibe" target="_blank">Telegram Блог</a></li>
+                            <li><a href="https://www.tiktok.com/@kunideveloper" target="_blank">TikTok</a></li>
+                            <li><a href="#">Учебные материалы</a></li>
+                            <li><a href="#">База CVE</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="footer-links-column">
+                        <h4>Услуги</h4>
+                        <ul>
+                            <li><a href="#services">Пентест на заказ</a></li>
+                            <li><a href="http://t.me/KuniDeveloper" target="_blank">Консультации</a></li>
+                            <li><a href="http://t.me/KuniDeveloper" target="_blank">Поддержка</a></li>
+                            <li><a href="http://t.me/KuniDeveloper" target="_blank">Сотрудничество</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Mute Ecosystem. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+        const navLinks = document.querySelector('.nav-links');
+        const header = document.getElementById('header');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navLinks.classList.toggle('active');
+            mobileMenuOverlay.classList.toggle('active');
+            document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
+        });
+        
+        mobileMenuOverlay.addEventListener('click', function() {
+            navLinks.classList.remove('active');
+            mobileMenuOverlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+        
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.classList.remove('active');
+                mobileMenuOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+        });
+        
+        window.addEventListener('scroll', function() {
+            if (window.scrollY > 50) {
+                header.classList.add('header-scrolled');
+            } else {
+                header.classList.remove('header-scrolled');
+            }
+        });
+        
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = function() {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+        
+        window.addEventListener('load', fadeInOnScroll);
+        window.addEventListener('scroll', fadeInOnScroll);
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.ecosystem-card, .contact-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+            
+            if (window.innerWidth <= 768) {
+                const featureItems = document.querySelectorAll('.feature-item');
+                featureItems.forEach((item, index) => {
+                    item.style.animationDelay = `${index * 0.15}s`;
+                });
+            }
+        });
+    </script>
+</body>
+</html>
