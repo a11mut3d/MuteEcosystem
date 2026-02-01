@@ -20,6 +20,7 @@
             --success: #10b981;
             --danger: #ef4444;
             --warning: #f59e0b;
+            --python: #3776ab;
         }
         
         * {
@@ -394,6 +395,18 @@
             border: 1px solid rgba(14, 165, 233, 0.3);
         }
         
+        .badge-python {
+            background-color: rgba(55, 118, 171, 0.15);
+            color: var(--python);
+            border: 1px solid rgba(55, 118, 171, 0.3);
+        }
+        
+        .badge-partner {
+            background-color: rgba(247, 127, 0, 0.15);
+            color: #f77f00;
+            border: 1px solid rgba(247, 127, 0, 0.3);
+        }
+        
         .features {
             padding: 100px 0;
             background-color: rgba(15, 23, 42, 0.7);
@@ -440,50 +453,89 @@
             padding: 100px 0;
         }
         
-        .service-card {
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.05), rgba(124, 58, 237, 0.05));
-            border-radius: 18px;
-            padding: 45px;
-            border: 1px solid rgba(100, 116, 139, 0.2);
-            margin-top: 30px;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
-            text-align: center;
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+            padding: 0 15px;
         }
         
-        .service-card h3 {
-            font-size: 1.9rem;
-            margin-bottom: 25px;
-            color: var(--light);
+        .service-card {
+            background-color: var(--dark-light);
+            border-radius: 18px;
+            padding: 40px 35px;
+            border: 1px solid rgba(100, 116, 139, 0.2);
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+            border-color: rgba(14, 165, 233, 0.3);
+        }
+        
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+        }
+        
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 15px;
+            margin: 0 auto 25px;
+            font-size: 34px;
+            color: white;
         }
         
-        .service-card h3 i {
-            color: var(--primary);
+        .pentest-icon {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+        
+        .python-icon {
+            background: linear-gradient(135deg, var(--python), #306998);
+        }
+        
+        .partner-icon {
+            background: linear-gradient(135deg, #f77f00, #e63946);
+        }
+        
+        .service-card h3 {
+            font-size: 1.7rem;
+            margin-bottom: 20px;
+            color: var(--light);
+            text-align: center;
         }
         
         .service-card p {
             color: var(--gray);
             line-height: 1.8;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
+            text-align: center;
         }
         
         .service-card ul {
             list-style: none;
-            margin: 0 auto 30px;
-            max-width: 700px;
+            margin: 0 0 30px;
             text-align: left;
         }
         
         .service-card ul li {
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             color: var(--gray);
             position: relative;
-            padding-left: 30px;
+            padding-left: 28px;
             line-height: 1.6;
         }
         
@@ -496,25 +548,78 @@
             font-size: 1.1rem;
         }
         
-        .contact-button {
+        .service-button {
             display: inline-block;
-            margin-top: 30px;
-            padding: 14px 35px;
-            background-color: transparent;
+            width: 100%;
+            padding: 14px 25px;
+            background-color: rgba(14, 165, 233, 0.1);
             color: var(--primary);
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
             font-size: 1.05rem;
             transition: all 0.3s;
-            border: 2px solid var(--primary);
+            border: 2px solid rgba(14, 165, 233, 0.3);
+            text-align: center;
         }
         
-        .contact-button:hover {
+        .service-button:hover {
             background-color: var(--primary);
             color: white;
             transform: translateY(-3px);
             box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3);
+        }
+        
+        .python-button {
+            background-color: rgba(55, 118, 171, 0.1);
+            color: var(--python);
+            border: 2px solid rgba(55, 118, 171, 0.3);
+        }
+        
+        .python-button:hover {
+            background-color: var(--python);
+            color: white;
+            box-shadow: 0 10px 25px rgba(55, 118, 171, 0.3);
+        }
+        
+        .partner-button {
+            background-color: rgba(247, 127, 0, 0.1);
+            color: #f77f00;
+            border: 2px solid rgba(247, 127, 0, 0.3);
+        }
+        
+        .partner-button:hover {
+            background-color: #f77f00;
+            color: white;
+            box-shadow: 0 10px 25px rgba(247, 127, 0, 0.3);
+        }
+        
+        .commission-info {
+            background: linear-gradient(135deg, rgba(247, 127, 0, 0.05), rgba(230, 57, 70, 0.05));
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 25px;
+            border: 1px solid rgba(247, 127, 0, 0.2);
+            text-align: center;
+        }
+        
+        .commission-info h4 {
+            color: #f77f00;
+            margin-bottom: 15px;
+            font-size: 1.3rem;
+        }
+        
+        .commission-info p {
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+        
+        .commission-amount {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #f77f00;
+            margin: 15px 0;
+            text-shadow: 0 0 10px rgba(247, 127, 0, 0.3);
         }
         
         .contact-section {
@@ -760,6 +865,13 @@
                 margin-left: auto;
                 margin-right: auto;
             }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+            }
         }
         
         @media (max-width: 992px) {
@@ -769,10 +881,6 @@
             
             .section-title h2 {
                 font-size: 2.2rem;
-            }
-            
-            .service-card {
-                padding: 35px 30px;
             }
         }
         
@@ -930,13 +1038,11 @@
             }
             
             .service-card {
-                padding: 25px 20px;
+                padding: 30px 25px;
             }
             
             .service-card h3 {
                 font-size: 1.6rem;
-                flex-direction: column;
-                gap: 10px;
             }
             
             .contact-card {
@@ -985,6 +1091,10 @@
             .logo-subtitle {
                 font-size: 9px;
             }
+            
+            .commission-amount {
+                font-size: 1.8rem;
+            }
         }
         
         @media (max-width: 400px) {
@@ -1014,8 +1124,8 @@
                 font-size: 0.95rem;
             }
             
-            .contact-button {
-                padding: 12px 25px;
+            .service-button {
+                padding: 12px 20px;
                 font-size: 1rem;
             }
             
@@ -1025,6 +1135,10 @@
             
             .footer-links-column {
                 min-width: 150px;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -1060,7 +1174,7 @@
         <div class="container">
             <div class="hero-content">
                 <h1 class="fade-in">Mute Ecosystem</h1>
-                <p class="fade-in">Полноценная экосистема для кибербезопасности и анализа уязвимостей. Инструменты для сканирования, мониторинга CVE и защиты ваших систем.</p>
+                <p class="fade-in">Полноценная экосистема для кибербезопасности, автоматизации и анализа уязвимостей. Инструменты для сканирования, мониторинга CVE, Python-автоматизации и защиты ваших систем.</p>
                 <a href="#ecosystem" class="cta-button fade-in">Исследовать экосистему</a>
             </div>
         </div>
@@ -1142,22 +1256,75 @@
                 <h2>Профессиональные услуги</h2>
             </div>
             
-            <div class="service-card fade-in">
-                <h3><i class="fas fa-user-secret"></i> Пентест на заказ</h3>
-                <p>Предоставляю профессиональные услуги по тестированию на проникновение (пентест) для различных систем и приложений. Комплексная проверка безопасности с подробным отчетом и рекомендациями по устранению уязвимостей.</p>
+            <p class="section-subtitle fade-in">Комплексные услуги в области кибербезопасности, автоматизации процессов и партнерского сотрудничества</p>
+            
+            <div class="services-grid">
+                <div class="service-card fade-in">
+                    <div class="service-icon pentest-icon">
+                        <i class="fas fa-user-secret"></i>
+                    </div>
+                    <h3>Пентест на заказ<span class="badge badge-service">Безопасность</span></h3>
+                    <p>Профессиональное тестирование на проникновение для различных систем и приложений. Комплексная проверка безопасности с подробным отчетом.</p>
+                    
+                    <h4 style="margin-top: 25px; margin-bottom: 15px; color: var(--light); text-align: center;">Что включают услуги:</h4>
+                    <ul>
+                        <li>Тестирование веб-приложений на уязвимости</li>
+                        <li>Анализ безопасности сетевой инфраструктуры</li>
+                        <li>Проверка мобильных приложений (iOS/Android)</li>
+                        <li>Социальная инженерия и фишинг-тестирование</li>
+                        <li>Аудит конфигурации безопасности</li>
+                        <li>Тестирование на проникновение в облачные среды</li>
+                    </ul>
+                    
+                    <a href="http://t.me/KuniDeveloper" target="_blank" class="service-button">Заказать пентест</a>
+                </div>
                 
-                <h4 style="margin-top: 25px; margin-bottom: 15px; color: var(--light);">Что включают услуги:</h4>
-                <ul>
-                    <li>Тестирование веб-приложений на уязвимости</li>
-                    <li>Анализ безопасности сетевой инфраструктуры</li>
-                    <li>Проверка мобильных приложений (iOS/Android)</li>
-                    <li>Социальная инженерия и фишинг-тестирование</li>
-                    <li>Аудит конфигурации безопасности</li>
-                    <li>Тестирование на проникновение в облачные среды</li>
-                    <li>Подробный отчет с рекомендациями</li>
-                </ul>
+                <div class="service-card fade-in">
+                    <div class="service-icon python-icon">
+                        <i class="fab fa-python"></i>
+                    </div>
+                    <h3>Автоматизация на Python<span class="badge badge-python">Программирование</span></h3>
+                    <p>Создание Python-скриптов для автоматизации рутинных задач и бизнес-процессов. Быстрые решения для оптимизации работы.</p>
+                    
+                    <h4 style="margin-top: 25px; margin-bottom: 15px; color: var(--light); text-align: center;">Примеры задач:</h4>
+                    <ul>
+                        <li>Автоматизация сбора и обработки данных</li>
+                        <li>Скрипты для взаимодействия с API</li>
+                        <li>Автоматизация отчетности и аналитики</li>
+                        <li>Боты для Telegram и других мессенджеров</li>
+                        <li>Решение специфических бизнес-задач</li>
+                        <li>Интеграция различных систем и сервисов</li>
+                    </ul>
+                    
+                    <a href="http://t.me/KuniDeveloper" target="_blank" class="service-button python-button">Заказать автоматизацию</a>
+                </div>
                 
-                <a href="http://t.me/KuniDeveloper" target="_blank" class="contact-button">Заказать пентест</a>
+                <div class="service-card fade-in">
+                    <div class="service-icon partner-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Партнерская программа<span class="badge badge-partner">Сотрудничество</span></h3>
+                    <p>Приводите клиентов и получайте вознаграждение за каждую выполненную работу. Прозрачные условия и регулярные выплаты.</p>
+                    
+                    <div class="commission-info">
+                        <h4>Ваше вознаграждение:</h4>
+                        <p>За каждого приведенного клиента вы получаете</p>
+                        <div class="commission-amount">15%</div>
+                        <p>от суммы каждого заказа, который он оплачивает</p>
+                    </div>
+                    
+                    <h4 style="margin-top: 25px; margin-bottom: 15px; color: var(--light); text-align: center;">Как это работает:</h4>
+                    <ul>
+                        <li>Вы рекомендуете клиенту обратиться ко мне</li>
+                        <li>Клиент сообщает ваше имя при заказе</li>
+                        <li>После выполнения работы и оплаты</li>
+                        <li>Вы получаете 15% от суммы заказа</li>
+                        <li>Выплаты происходят моментально</li>
+                        <li>Без ограничений по количеству приведенных клиентов</li>
+                    </ul>
+                    
+                    <a href="http://t.me/KuniDeveloper" target="_blank" class="service-button partner-button">Стать партнером</a>
+                </div>
             </div>
         </div>
     </section>
@@ -1168,7 +1335,7 @@
                 <h2>Контакты для связи</h2>
             </div>
             
-            <p class="section-subtitle fade-in">Свяжитесь со мной для заказа пентестов, консультаций или сотрудничества</p>
+            <p class="section-subtitle fade-in">Свяжитесь со мной для заказа пентестов, автоматизации, консультаций или сотрудничества</p>
             
             <div class="contact-grid">
                 <div class="contact-card fade-in">
@@ -1176,7 +1343,7 @@
                         <i class="fab fa-telegram"></i>
                     </div>
                     <h3>Telegram для заказов</h3>
-                    <p>Основной канал связи для заказа пентестов, консультаций и сотрудничества.</p>
+                    <p>Основной канал связи для заказа услуг, консультаций и сотрудничества.</p>
                     <a href="http://t.me/KuniDeveloper" target="_blank" class="contact-link">@KuniDeveloper</a>
                 </div>
                 
@@ -1207,7 +1374,7 @@
                 <h2>Ключевые возможности</h2>
             </div>
             
-            <p class="section-subtitle fade-in">Преимущества использования экосистемы Mute для вашей кибербезопасности</p>
+            <p class="section-subtitle fade-in">Преимущества использования экосистемы Mute для вашей кибербезопасности и автоматизации</p>
             
             <div class="features-grid">
                 <div class="feature-item fade-in">
@@ -1222,11 +1389,11 @@
                 
                 <div class="feature-item fade-in">
                     <div class="feature-icon">
-                        <i class="fas fa-bolt"></i>
+                        <i class="fas fa-robot"></i>
                     </div>
                     <div class="feature-content">
-                        <h3>Высокая скорость</h3>
-                        <p>Оптимизированные алгоритмы сканирования и анализа работают быстро даже с большими объемами данных.</p>
+                        <h3>Автоматизация процессов</h3>
+                        <p>Python-скрипты для автоматизации рутинных задач, что экономит время и повышает эффективность.</p>
                     </div>
                 </div>
                 
@@ -1242,11 +1409,11 @@
                 
                 <div class="feature-item fade-in">
                     <div class="feature-icon">
-                        <i class="fas fa-chart-line"></i>
+                        <i class="fas fa-hand-holding-usd"></i>
                     </div>
                     <div class="feature-content">
-                        <h3>Детальная аналитика</h3>
-                        <p>Подробные отчеты и визуализация результатов сканирования для быстрого анализа угроз.</p>
+                        <h3>Выгодное сотрудничество</h3>
+                        <p>Партнерская программа с 15% вознаграждением за каждого приведенного клиента.</p>
                     </div>
                 </div>
             </div>
@@ -1256,7 +1423,7 @@
     <section id="cta" class="cta-section">
         <div class="container">
             <h2 class="fade-in">Начните использовать Mute Ecosystem сегодня</h2>
-            <p class="fade-in">Присоединяйтесь к сообществу специалистов по кибербезопасности. Получите доступ ко всем инструментам экосистемы и начните защищать свои системы от угроз.</p>
+            <p class="fade-in">Присоединяйтесь к сообществу специалистов по кибербезопасности. Получите доступ ко всем инструментам экосистемы и начните защищать свои системы от угроз, автоматизировать задачи или стать партнером.</p>
             <a href="#ecosystem" class="cta-button fade-in">Исследовать экосистему</a>
         </div>
     </section>
@@ -1269,7 +1436,7 @@
                         <i class="fas fa-shield-alt"></i>
                         <span>Mute Ecosystem</span>
                     </div>
-                    <p>Современная экосистема для кибербезопасности и анализа уязвимостей. Инструменты для сканирования, мониторинга CVE и защиты систем.</p>
+                    <p>Современная экосистема для кибербезопасности, автоматизации и анализа уязвимостей. Инструменты для сканирования, мониторинга CVE и защиты систем.</p>
                     <div class="social-links">
                         <a href="https://github.com/a11mut3d/" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
                         <a href="http://t.me/KuniDeveloper" target="_blank" title="Telegram для заказов"><i class="fab fa-telegram"></i></a>
@@ -1289,20 +1456,20 @@
                     </div>
                     
                     <div class="footer-links-column">
-                        <h4>Контент</h4>
+                        <h4>Услуги</h4>
                         <ul>
-                            <li><a href="https://t.me/rootlocalhostvibe" target="_blank">Telegram Блог</a></li>
-                            <li><a href="https://www.tiktok.com/@kunideveloper" target="_blank">TikTok</a></li>
+                            <li><a href="#services">Пентест на заказ</a></li>
+                            <li><a href="#services">Автоматизация на Python</a></li>
+                            <li><a href="#services">Партнерская программа</a></li>
+                            <li><a href="http://t.me/KuniDeveloper" target="_blank">Консультации</a></li>
                         </ul>
                     </div>
                     
                     <div class="footer-links-column">
-                        <h4>Услуги</h4>
+                        <h4>Контент</h4>
                         <ul>
-                            <li><a href="#services">Пентест на заказ</a></li>
-                            <li><a href="http://t.me/KuniDeveloper" target="_blank">Консультации</a></li>
-                            <li><a href="http://t.me/KuniDeveloper" target="_blank">Поддержка</a></li>
-                            <li><a href="http://t.me/KuniDeveloper" target="_blank">Сотрудничество</a></li>
+                            <li><a href="https://t.me/rootlocalhostvibe" target="_blank">Telegram Блог</a></li>
+                            <li><a href="https://www.tiktok.com/@kunideveloper" target="_blank">TikTok</a></li>
                         </ul>
                     </div>
                 </div>
