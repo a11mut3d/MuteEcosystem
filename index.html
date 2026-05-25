@@ -21,6 +21,7 @@
             --danger: #ef4444;
             --warning: #f59e0b;
             --python: #3776ab;
+            --cge: #00b4d8;
         }
         
         * {
@@ -407,10 +408,16 @@
             border: 1px solid rgba(247, 127, 0, 0.3);
         }
         
-        .badge-temp-hidden {
-            background-color: rgba(239, 68, 68, 0.15);
-            color: #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.3);
+        .badge-cge {
+            background-color: rgba(0, 180, 216, 0.15);
+            color: #00b4d8;
+            border: 1px solid rgba(0, 180, 216, 0.3);
+        }
+        
+        .badge-available {
+            background-color: rgba(16, 185, 129, 0.15);
+            color: #10b981;
+            border: 1px solid rgba(16, 185, 129, 0.3);
         }
         
         .features {
@@ -1201,9 +1208,9 @@
                         <div class="card-icon">
                             <i class="fas fa-search"></i>
                         </div>
-                        <h3>FullMute Scanner<span class="badge badge-temp-hidden">Временно скрыт</span></h3>
-                        <p>Сканирование веб-сайтов, IoT устройств, поиск чувствительных файлов и проверка на CVE. В настоящее время инструмент находится в процессе обновления и временно недоступен.</p>
-                        <a href="#" class="card-link" style="cursor: default; opacity: 0.7;">Скоро будет доступен <i class="fas fa-clock"></i></a>
+                        <h3>FullMute Scanner<span class="badge badge-available">Доступен</span></h3>
+                        <p>Мощный сканер для веб-сайтов, IoT устройств, поиска чувствительных файлов и проверки на CVE уязвимости. Полнофункциональный инструмент для аудита безопасности.</p>
+                        <a href="https://github.com/a11mut3d/FullMute-Scanner" target="_blank" class="card-link">Открыть репозиторий <i class="fas fa-arrow-right"></i></a>
                     </div>
                     
                     <div class="ecosystem-card">
@@ -1213,6 +1220,15 @@
                         <h3>Telegrambot MITM Proxy<span class="badge badge-github">GitHub</span></h3>
                         <p>Прокси-сервер для анализа трафика Telegram ботов. Позволяет исследовать взаимодействие ботов с API и выявлять потенциальные уязвимости.</p>
                         <a href="https://github.com/a11mut3d/Telegrambot-MITM" target="_blank" class="card-link">Открыть репозиторий <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                    
+                    <div class="ecosystem-card">
+                        <div class="card-icon">
+                            <i class="fas fa-code-branch"></i>
+                        </div>
+                        <h3>CGE<span class="badge badge-cge">Новый</span></h3>
+                        <p>Инструмент пассивной разведки и построения графов, который выявляет поддомены, конечные точки и связи между хостами посредством веб-краулинга и анализа.</p>
+                        <a href="https://github.com/a11mut3d/CGE" target="_blank" class="card-link">Открыть репозиторий <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -1441,8 +1457,9 @@
                     <div class="footer-links-column">
                         <h4>Инструменты</h4>
                         <ul>
-                            <li><a href="#">FullMute Scanner (скоро)</a></li>
+                            <li><a href="https://github.com/a11mut3d/FullMute-Scanner" target="_blank">FullMute Scanner</a></li>
                             <li><a href="https://github.com/a11mut3d/Telegrambot-MITM" target="_blank">MITM прокси</a></li>
+                            <li><a href="https://github.com/a11mut3d/CGE" target="_blank">CGE</a></li>
                         </ul>
                     </div>
                     
