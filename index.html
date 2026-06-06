@@ -96,6 +96,10 @@
             margin-bottom: 80px;
         }
 
+        .social-block {
+            margin-bottom: 80px;
+        }
+
         .features {
             margin-bottom: 60px;
         }
@@ -289,7 +293,6 @@
             box-shadow: 0 2px 0 rgba(255,123,44,0.2);
         }
 
-        /* новый стиль для заголовков без // */
         .section-title h2 i {
             margin-right: 8px;
             color: var(--accent-1);
@@ -568,6 +571,7 @@
                 margin-right: auto;
             }
             section { margin-bottom: 60px; }
+            .social-block { margin-bottom: 60px; }
         }
 
         @media (max-width: 550px) {
@@ -672,7 +676,6 @@
         </div>
     </section>
 
-    <!-- SERVICES (Профессиональные услуги) теперь идут перед SOCIAL & CONTENT -->
     <section id="services" class="services">
         <div class="container">
             <div class="section-title fade-in">
@@ -719,23 +722,24 @@
         </div>
     </section>
 
-    <!-- SOCIAL & CONTENT теперь после услуг -->
-    <div class="container">
-        <div class="section-title fade-in">
-            <h2><i class="fab fa-telegram"></i> SOCIAL & CONTENT</h2>
-        </div>
-        <div class="grid-3">
-            <div class="ecosystem-card fade-in">
-                <div class="card-icon"><i class="fab fa-telegram"></i></div>
-                <h3>Telegram Блог<span class="badge-github">Контент</span></h3>
-                <p data-lang-key="tgblog_desc">Статьи, разборы уязвимостей, новости кибербезопасности.</p>
-                <a href="https://t.me/rootlocalhostvibe" target="_blank" class="card-link">Перейти <i class="fas fa-arrow-right"></i></a>
+    <div class="social-block">
+        <div class="container">
+            <div class="section-title fade-in">
+                <h2><i class="fab fa-telegram"></i> SOCIAL & CONTENT</h2>
             </div>
-            <div class="ecosystem-card fade-in">
-                <div class="card-icon"><i class="fab fa-tiktok"></i></div>
-                <h3>TikTok Аккаунт<span class="badge-github">Видео</span></h3>
-                <p data-lang-key="tiktok_desc">Обучающие ролики по кибербезопасности и пентесту.</p>
-                <a href="https://www.tiktok.com/@kunideveloper" target="_blank" class="card-link">Перейти <i class="fas fa-arrow-right"></i></a>
+            <div class="grid-3">
+                <div class="ecosystem-card fade-in">
+                    <div class="card-icon"><i class="fab fa-telegram"></i></div>
+                    <h3>Telegram Блог<span class="badge-github">Контент</span></h3>
+                    <p data-lang-key="tgblog_desc">Статьи, разборы уязвимостей, новости кибербезопасности.</p>
+                    <a href="https://t.me/rootlocalhostvibe" target="_blank" class="card-link">Перейти <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="ecosystem-card fade-in">
+                    <div class="card-icon"><i class="fab fa-tiktok"></i></div>
+                    <h3>TikTok Аккаунт<span class="badge-github">Видео</span></h3>
+                    <p data-lang-key="tiktok_desc">Обучающие ролики по кибербезопасности и пентесту.</p>
+                    <a href="https://www.tiktok.com/@kunideveloper" target="_blank" class="card-link">Перейти <i class="fas fa-arrow-right"></i></a>
+                </div>
             </div>
         </div>
     </div>
