@@ -2,1256 +2,684 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mute Ecosystem - Современная кибербезопасность</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Mute Ecosystem | Авангард кибербезопасности</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #0ea5e9;
-            --primary-dark: #0284c7;
-            --secondary: #7c3aed;
-            --dark: #0f172a;
-            --dark-light: #1e293b;
-            --light: #f8fafc;
-            --gray: #64748b;
-            --success: #10b981;
-            --danger: #ef4444;
-            --warning: #f59e0b;
-            --python: #3776ab;
-            --cge: #00b4d8;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
+        :root {
+            --bg-primary: #0b0e17;
+            --bg-secondary: #111520;
+            --card-bg: #131826;
+            --border-color: #2a2f3f;
+            --accent-1: #ff7b2c;
+            --accent-2: #ff3a5e;
+            --accent-glow: #ff7b2c;
+            --text-light: #f0f3fa;
+            --text-dim: #9aa4bf;
+            --shadow-sm: 0 8px 20px rgba(0,0,0,0.3);
+            --transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            --glow-sm: 0 0 10px rgba(255, 123, 44, 0.3);
+            --glow-md: 0 0 20px rgba(255, 123, 44, 0.4);
+            --glow-lg: 0 0 30px rgba(255, 123, 44, 0.5);
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--light);
-            background-color: var(--dark);
+            background: var(--bg-primary);
+            color: var(--text-light);
+            line-height: 1.5;
             overflow-x: hidden;
         }
-        
-        .container {
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        header {
-            background-color: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(100, 116, 139, 0.2);
-            transition: all 0.3s ease;
-        }
-        
-        .header-scrolled {
-            padding: 5px 0;
-            background-color: rgba(15, 23, 42, 0.98);
-        }
-        
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            transition: all 0.3s ease;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 22px;
-            font-weight: 700;
-            color: var(--light);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        
-        .logo i {
-            color: var(--primary);
-            font-size: 24px;
-        }
-        
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-        }
-        
-        .logo-subtitle {
-            font-size: 10px;
-            color: var(--gray);
-            font-weight: 400;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-        
-        .nav-links a {
-            color: var(--light);
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-            position: relative;
-            font-size: 15px;
-        }
-        
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-        
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            left: 0;
-            bottom: -5px;
-            transition: width 0.3s;
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-        
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            color: var(--light);
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 1001;
-        }
-        
-        .mobile-menu-overlay {
-            display: none;
+
+        .animated-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            z-index: 999;
+            background: radial-gradient(circle at 20% 30%, rgba(255, 123, 44, 0.08) 0%, rgba(255, 58, 94, 0.05) 50%, transparent 80%);
+            z-index: 0;
+            pointer-events: none;
+            animation: slowShift 14s infinite alternate;
         }
-        
-        .hero {
-            padding: 160px 0 100px;
-            background: radial-gradient(circle at 20% 50%, rgba(14, 165, 233, 0.15) 0%, transparent 40%),
-                        radial-gradient(circle at 80% 20%, rgba(124, 58, 237, 0.1) 0%, transparent 40%);
-            position: relative;
-            overflow: hidden;
+
+        @keyframes slowShift {
+            0% { opacity: 0.4; transform: scale(1);}
+            100% { opacity: 0.9; transform: scale(1.2);}
         }
-        
-        .hero-content {
-            max-width: 800px;
-            text-align: center;
+
+        .glow-orb {
+            position: fixed;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,123,44,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+            animation: floatOrb 20s infinite alternate;
+        }
+
+        @keyframes floatOrb {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            100% { transform: translate(100px, 50px) scale(1.3); opacity: 0.6; }
+        }
+
+        .container {
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 0 24px;
+            position: relative;
+            z-index: 2;
         }
-        
-        .hero h1 {
-            font-size: 3.2rem;
-            font-weight: 800;
-            margin-bottom: 20px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 1.2;
+
+        section {
+            margin-bottom: 80px;
         }
-        
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--gray);
+
+        .hero {
+            padding: 160px 0 60px;
+            position: relative;
+            text-align: center;
             margin-bottom: 40px;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.7;
         }
-        
+
+        .ecosystem, .services, .contact-section, .features {
+            margin-bottom: 80px;
+        }
+
+        .features {
+            margin-bottom: 60px;
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            background: rgba(11, 14, 23, 0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 1000;
+            transition: 0.3s;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 1.45rem;
+            text-decoration: none;
+            color: var(--text-light);
+            transition: var(--transition);
+        }
+
+        .logo i {
+            color: var(--accent-1);
+            font-size: 1.8rem;
+            filter: drop-shadow(var(--glow-sm));
+            transition: var(--transition);
+        }
+
+        .logo:hover i {
+            filter: drop-shadow(var(--glow-md));
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 500;
+            transition: 0.3s;
+            font-size: 0.9rem;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-1);
+            transition: width 0.3s ease;
+            box-shadow: var(--glow-sm);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-1);
+        }
+
+        .lang-toggle {
+            background: transparent;
+            border: 1px solid var(--accent-1);
+            color: var(--accent-1);
+            padding: 6px 14px;
+            border-radius: 60px;
+            font-family: monospace;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .lang-toggle:hover {
+            background: var(--accent-1);
+            color: #0b0e17;
+            box-shadow: var(--glow-sm);
+            transform: translateY(-2px);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: transparent;
+            border: 1px solid var(--accent-1);
+            border-radius: 12px;
+            padding: 8px 12px;
+            color: var(--accent-1);
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .mobile-menu-btn:hover {
+            background: rgba(255, 123, 44, 0.1);
+            box-shadow: var(--glow-sm);
+        }
+
+        .hero h1 {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 3.4rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent-1), var(--accent-2));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.2rem;
+            animation: glowPulse 3s infinite;
+        }
+
+        @keyframes glowPulse {
+            0% { filter: drop-shadow(0 0 0px rgba(255,123,44,0));}
+            50% { filter: drop-shadow(0 0 12px rgba(255,123,44,0.5));}
+            100% { filter: drop-shadow(0 0 0px rgba(255,123,44,0));}
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-dim);
+            max-width: 720px;
+            margin: 0 auto 2rem;
+        }
+
         .cta-button {
             display: inline-block;
-            padding: 16px 38px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: transform 0.3s, box-shadow 0.3s;
+            background: linear-gradient(90deg, var(--accent-1), var(--accent-2));
             border: none;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(14, 165, 233, 0.3);
+            padding: 14px 38px;
+            color: #0b0e17;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            border-radius: 60px;
+            transition: var(--transition);
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(255, 123, 44, 0.3);
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
         .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(14, 165, 233, 0.4);
+            transform: translateY(-3px);
+            box-shadow: var(--glow-lg);
         }
-        
+
         .section-title {
             text-align: center;
-            margin-bottom: 70px;
-            position: relative;
-            padding: 0 15px;
+            margin-bottom: 2rem;
         }
-        
+
         .section-title h2 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--light);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2rem;
             display: inline-block;
-            position: relative;
+            border-bottom: 3px solid var(--accent-1);
+            padding-bottom: 10px;
+            letter-spacing: -0.5px;
+            box-shadow: 0 2px 0 rgba(255,123,44,0.2);
         }
-        
-        .section-title h2::after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 4px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-            bottom: -18px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-        
+
         .section-subtitle {
             text-align: center;
-            color: var(--gray);
-            max-width: 700px;
-            margin: 30px auto 50px;
-            font-size: 1.1rem;
-            line-height: 1.7;
-            padding: 0 15px;
+            color: var(--text-dim);
+            max-width: 680px;
+            margin: 0 auto 2.5rem;
         }
-        
-        .ecosystem {
-            padding: 100px 0;
-        }
-        
-        .category-section {
-            margin-bottom: 80px;
-            padding: 0 15px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        .category-title {
-            font-size: 1.8rem;
-            margin-bottom: 35px;
-            color: var(--light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            text-align: center;
-        }
-        
-        .category-title i {
-            color: var(--primary);
-            font-size: 1.5rem;
-        }
-        
-        .ecosystem-grid {
+
+        .grid-3 {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            gap: 30px;
-            width: 100%;
-            justify-items: center;
+            gap: 2rem;
+            align-items: stretch;
         }
-        
-        .centered-grid {
+
+        .ecosystem-card, .service-card, .contact-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 28px;
+            padding: 2rem 1.8rem;
+            transition: var(--transition);
+            backdrop-filter: blur(2px);
+            height: 100%;
             display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 30px;
-            width: 100%;
-        }
-        
-        .ecosystem-card {
-            background-color: var(--dark-light);
-            border-radius: 16px;
-            padding: 35px 30px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            flex-direction: column;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(100, 116, 139, 0.2);
-            width: 100%;
-            max-width: 380px;
-            text-align: center;
         }
-        
-        .ecosystem-card:hover {
-            transform: translateY(-15px) scale(1.02);
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
-            border-color: rgba(14, 165, 233, 0.3);
-        }
-        
-        .ecosystem-card::before {
+
+        .ecosystem-card::before, .service-card::before, .contact-card::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
+            left: -100%;
             width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,123,44,0.05), transparent);
+            transition: left 0.6s;
+            pointer-events: none;
         }
-        
-        .card-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(124, 58, 237, 0.1));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 25px;
-            font-size: 32px;
-            color: var(--primary);
-            transition: all 0.3s;
+
+        .ecosystem-card:hover::before, .service-card:hover::before, .contact-card:hover::before {
+            left: 100%;
         }
-        
+
+        .ecosystem-card:hover, .service-card:hover, .contact-card:hover {
+            border-color: var(--accent-1);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-sm), var(--glow-sm);
+        }
+
+        .card-icon, .service-icon, .contact-icon {
+            font-size: 2.5rem;
+            color: var(--accent-1);
+            margin-bottom: 1.2rem;
+            transition: var(--transition);
+        }
+
         .ecosystem-card:hover .card-icon {
-            transform: scale(1.1);
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.2), rgba(124, 58, 237, 0.2));
+            transform: scale(1.1) rotate(3deg);
+            filter: drop-shadow(var(--glow-sm));
         }
-        
-        .ecosystem-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--light);
-            line-height: 1.3;
+
+        .badge-github {
+            display: inline-block;
+            background: #1e2436;
+            color: #b9c3e6;
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 40px;
+            margin-left: 10px;
+            border: 1px solid #2e3548;
         }
-        
-        .ecosystem-card p {
-            color: var(--gray);
-            margin-bottom: 25px;
-            line-height: 1.7;
-            font-size: 1rem;
-        }
-        
+
         .card-link {
-            color: var(--primary);
-            text-decoration: none;
-            font-weight: 600;
+            margin-top: auto;
             display: inline-flex;
             align-items: center;
-            justify-content: center;
             gap: 8px;
-            transition: all 0.3s;
-            padding: 10px 20px;
-            border-radius: 50px;
-            background: rgba(14, 165, 233, 0.1);
-            width: fit-content;
-            margin: 0 auto;
+            color: var(--accent-1);
+            text-decoration: none;
+            font-weight: 600;
+            font-family: monospace;
+            padding-top: 1rem;
+            transition: var(--transition);
         }
-        
+
         .card-link:hover {
             gap: 12px;
-            background: rgba(14, 165, 233, 0.2);
+            filter: drop-shadow(var(--glow-sm));
         }
-        
-        .badge {
-            display: inline-block;
-            padding: 5px 14px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            margin-left: 10px;
-        }
-        
-        .badge-github {
-            background-color: rgba(24, 23, 23, 0.3);
-            color: #f0f6fc;
-            border: 1px solid #30363d;
-        }
-        
-        .badge-service {
-            background-color: rgba(16, 185, 129, 0.1);
-            color: #10b981;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-        
-        .badge-social {
-            background-color: rgba(14, 165, 233, 0.1);
-            color: #0ea5e9;
-            border: 1px solid rgba(14, 165, 233, 0.3);
-        }
-        
-        .badge-python {
-            background-color: rgba(55, 118, 171, 0.15);
-            color: var(--python);
-            border: 1px solid rgba(55, 118, 171, 0.3);
-        }
-        
-        .badge-partner {
-            background-color: rgba(247, 127, 0, 0.15);
-            color: #f77f00;
-            border: 1px solid rgba(247, 127, 0, 0.3);
-        }
-        
-        .badge-cge {
-            background-color: rgba(0, 180, 216, 0.15);
-            color: #00b4d8;
-            border: 1px solid rgba(0, 180, 216, 0.3);
-        }
-        
-        .badge-available {
-            background-color: rgba(16, 185, 129, 0.15);
-            color: #10b981;
-            border: 1px solid rgba(16, 185, 129, 0.3);
-        }
-        
-        .features {
-            padding: 100px 0;
-            background-color: rgba(15, 23, 42, 0.7);
-        }
-        
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 50px;
-            margin-top: 50px;
-            padding: 0 15px;
-        }
-        
-        .feature-item {
-            display: flex;
-            gap: 25px;
-            align-items: flex-start;
-        }
-        
-        .feature-icon {
-            flex-shrink: 0;
-            width: 65px;
-            height: 65px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 26px;
-        }
-        
-        .feature-content h3 {
-            font-size: 1.35rem;
-            margin-bottom: 12px;
-            color: var(--light);
-        }
-        
-        .feature-content p {
-            color: var(--gray);
-            line-height: 1.7;
-        }
-        
-        .services {
-            padding: 100px 0;
-        }
-        
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-            padding: 0 15px;
-        }
-        
-        .service-card {
-            background-color: var(--dark-light);
-            border-radius: 18px;
-            padding: 40px 35px;
-            border: 1px solid rgba(100, 116, 139, 0.2);
-            transition: all 0.4s;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-            border-color: rgba(14, 165, 233, 0.3);
-        }
-        
-        .service-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(to right, var(--primary), var(--secondary));
-        }
-        
-        .service-icon {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 25px;
-            font-size: 34px;
-            color: white;
-        }
-        
-        .pentest-icon {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-        }
-        
-        .python-icon {
-            background: linear-gradient(135deg, var(--python), #306998);
-        }
-        
-        .partner-icon {
-            background: linear-gradient(135deg, #f77f00, #e63946);
-        }
-        
-        .service-card h3 {
-            font-size: 1.7rem;
-            margin-bottom: 20px;
-            color: var(--light);
-            text-align: center;
-        }
-        
-        .service-card p {
-            color: var(--gray);
-            line-height: 1.8;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .service-card ul {
-            list-style: none;
-            margin: 0 0 30px;
-            text-align: left;
-        }
-        
-        .service-card ul li {
-            margin-bottom: 12px;
-            color: var(--gray);
-            position: relative;
-            padding-left: 28px;
-            line-height: 1.6;
-        }
-        
-        .service-card ul li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            color: var(--success);
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-        
+
         .service-button {
-            display: inline-block;
-            width: 100%;
-            padding: 14px 25px;
-            background-color: rgba(14, 165, 233, 0.1);
-            color: var(--primary);
+            margin-top: auto;
+            text-align: center;
+            background: rgba(255, 123, 44, 0.08);
+            border: 1px solid var(--accent-1);
+            border-radius: 60px;
+            padding: 12px;
+            color: var(--accent-1);
+            font-weight: bold;
+            transition: var(--transition);
             text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.05rem;
-            transition: all 0.3s;
-            border: 2px solid rgba(14, 165, 233, 0.3);
-            text-align: center;
+            display: block;
         }
-        
+
         .service-button:hover {
-            background-color: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(14, 165, 233, 0.3);
+            background: var(--accent-1);
+            color: #0b0e17;
+            box-shadow: var(--glow-sm);
+            transform: translateY(-2px);
         }
-        
-        .python-button {
-            background-color: rgba(55, 118, 171, 0.1);
-            color: var(--python);
-            border: 2px solid rgba(55, 118, 171, 0.3);
-        }
-        
-        .python-button:hover {
-            background-color: var(--python);
-            color: white;
-            box-shadow: 0 10px 25px rgba(55, 118, 171, 0.3);
-        }
-        
-        .partner-button {
-            background-color: rgba(247, 127, 0, 0.1);
-            color: #f77f00;
-            border: 2px solid rgba(247, 127, 0, 0.3);
-        }
-        
-        .partner-button:hover {
-            background-color: #f77f00;
-            color: white;
-            box-shadow: 0 10px 25px rgba(247, 127, 0, 0.3);
-        }
-        
+
         .commission-info {
-            background: linear-gradient(135deg, rgba(247, 127, 0, 0.05), rgba(230, 57, 70, 0.05));
-            border-radius: 15px;
-            padding: 25px;
-            margin-top: 25px;
-            border: 1px solid rgba(247, 127, 0, 0.2);
+            background: #0d1120;
+            border-radius: 20px;
+            padding: 1rem;
             text-align: center;
+            margin: 1rem 0;
+            border: 1px solid rgba(255,123,44,0.2);
         }
-        
-        .commission-info h4 {
-            color: #f77f00;
-            margin-bottom: 15px;
-            font-size: 1.3rem;
-        }
-        
-        .commission-info p {
-            color: var(--gray);
-            margin-bottom: 10px;
-        }
-        
+
         .commission-amount {
             font-size: 2.2rem;
             font-weight: 800;
-            color: #f77f00;
-            margin: 15px 0;
-            text-shadow: 0 0 10px rgba(247, 127, 0, 0.3);
+            color: var(--accent-1);
+            text-shadow: var(--glow-sm);
+            animation: softPulse 2s infinite;
         }
-        
-        .contact-section {
-            padding: 100px 0;
+
+        @keyframes softPulse {
+            0%, 100% { text-shadow: 0 0 2px var(--accent-1); }
+            50% { text-shadow: 0 0 12px var(--accent-1); }
         }
-        
-        .contact-grid {
+
+        .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-            padding: 0 15px;
-            justify-items: center;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.8rem;
+            margin: 2rem 0;
         }
-        
-        .contact-card {
-            background-color: var(--dark-light);
-            border-radius: 16px;
-            padding: 35px 30px;
-            text-align: center;
-            border: 1px solid rgba(100, 116, 139, 0.2);
-            transition: all 0.3s;
-            width: 100%;
-            max-width: 380px;
+
+        .feature-item {
+            background: rgba(19, 24, 38, 0.7);
+            border-left: 4px solid var(--accent-1);
+            padding: 1.3rem;
+            border-radius: 20px;
+            transition: var(--transition);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
         }
-        
-        .contact-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(14, 165, 233, 0.3);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        }
-        
-        .contact-icon {
-            width: 85px;
-            height: 85px;
-            background: linear-gradient(135deg, rgba(14, 165, 233, 0.1), rgba(124, 58, 237, 0.1));
-            border-radius: 50%;
+
+        .feature-icon-box {
+            flex-shrink: 0;
+            width: 52px;
+            height: 52px;
+            background: linear-gradient(135deg, rgba(255, 123, 44, 0.15), rgba(255, 58, 94, 0.1));
+            border-radius: 18px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 25px;
-            font-size: 38px;
-            color: var(--primary);
+            font-size: 1.8rem;
+            color: var(--accent-1);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 123, 44, 0.3);
         }
-        
-        .contact-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            color: var(--light);
+
+        .feature-item:hover .feature-icon-box {
+            transform: scale(1.08) rotate(5deg);
+            background: linear-gradient(135deg, rgba(255, 123, 44, 0.3), rgba(255, 58, 94, 0.2));
+            box-shadow: var(--glow-sm);
+            border-color: var(--accent-1);
         }
-        
-        .contact-card p {
-            color: var(--gray);
-            margin-bottom: 25px;
-            line-height: 1.7;
+
+        .feature-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
         }
-        
-        .contact-link {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: rgba(14, 165, 233, 0.1);
-            color: var(--primary);
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            transition: all 0.3s;
+
+        .feature-content p {
+            color: var(--text-dim);
+            font-size: 0.9rem;
+            line-height: 1.5;
         }
-        
-        .contact-link:hover {
-            background-color: var(--primary);
-            color: white;
-            transform: translateY(-3px);
+
+        .feature-item:hover {
+            background: #1a1f30;
+            transform: translateX(8px);
+            box-shadow: var(--glow-sm);
         }
-        
-        .cta-section {
-            padding: 100px 0;
-            text-align: center;
-            background: radial-gradient(circle at 70% 30%, rgba(14, 165, 233, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 30% 70%, rgba(124, 58, 237, 0.1) 0%, transparent 50%);
-        }
-        
-        .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--light);
-            padding: 0 15px;
-        }
-        
-        .cta-section p {
-            color: var(--gray);
-            max-width: 700px;
-            margin: 0 auto 40px;
-            font-size: 1.1rem;
-            line-height: 1.7;
-            padding: 0 15px;
-        }
-        
+
         footer {
-            background-color: var(--dark-light);
-            padding: 70px 0 30px;
-            border-top: 1px solid rgba(100, 116, 139, 0.2);
+            background: #080b12;
+            border-top: 1px solid var(--border-color);
+            padding: 3rem 0 2rem;
+            margin-top: 40px;
         }
-        
+
         .footer-content {
             display: flex;
+            flex-wrap: wrap;
             justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 50px;
-            flex-wrap: wrap;
-            gap: 40px;
+            gap: 2rem;
         }
-        
-        .footer-info {
-            flex: 1;
-            min-width: 300px;
-            padding: 0 15px;
-        }
-        
-        .footer-logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--light);
-            margin-bottom: 20px;
-        }
-        
-        .footer-logo i {
-            color: var(--primary);
-        }
-        
-        .footer-info p {
-            color: var(--gray);
-            line-height: 1.7;
-            margin-bottom: 25px;
-            max-width: 350px;
-        }
-        
-        .footer-links {
-            display: flex;
-            gap: 40px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .footer-links-column {
-            min-width: 180px;
-            padding: 0 15px;
-        }
-        
-        .footer-links-column h4 {
-            font-size: 1.15rem;
-            margin-bottom: 20px;
-            color: var(--light);
-        }
-        
-        .footer-links-column ul {
-            list-style: none;
-        }
-        
-        .footer-links-column ul li {
-            margin-bottom: 12px;
-        }
-        
-        .footer-links-column ul li a {
-            color: var(--gray);
-            text-decoration: none;
-            transition: color 0.3s;
-            font-size: 0.95rem;
-        }
-        
-        .footer-links-column ul li a:hover {
-            color: var(--primary);
-        }
-        
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 25px;
-        }
-        
+
         .social-links a {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background-color: rgba(100, 116, 139, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--light);
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 18px;
+            color: var(--text-dim);
+            font-size: 1.4rem;
+            margin-right: 1rem;
+            transition: var(--transition);
+            display: inline-block;
         }
-        
+
         .social-links a:hover {
-            background-color: var(--primary);
-            transform: translateY(-5px) scale(1.1);
+            color: var(--accent-1);
+            transform: translateY(-3px);
+            filter: drop-shadow(var(--glow-sm));
         }
-        
+
         .copyright {
             text-align: center;
-            color: var(--gray);
-            padding-top: 30px;
-            border-top: 1px solid rgba(100, 116, 139, 0.2);
-            font-size: 0.9rem;
-            padding: 30px 15px 0;
+            padding-top: 2rem;
+            color: var(--text-dim);
+            font-size: 0.8rem;
         }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        .floating {
-            animation: float 5s ease-in-out infinite;
-        }
-        
+
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
-            transition: opacity 0.8s, transform 0.8s;
+            transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.8s cubic-bezier(0.2, 0.9, 0.4, 1.1);
         }
-        
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
         }
-        
-        @media (max-width: 1100px) {
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-            
-            .section-title h2 {
-                font-size: 2.3rem;
-            }
-            
-            .features-grid {
-                grid-template-columns: 1fr;
-                max-width: 700px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            
-            .services-grid {
-                grid-template-columns: 1fr;
-                max-width: 500px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-        }
-        
-        @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 2.6rem;
-            }
-            
-            .section-title h2 {
-                font-size: 2.2rem;
-            }
-        }
-        
-        @media (max-width: 768px) {
+
+        @media (max-width: 900px) {
             .nav-links {
                 position: fixed;
                 top: 0;
                 right: -100%;
                 width: 280px;
                 height: 100%;
-                background-color: var(--dark);
+                background: #0a0e18;
                 flex-direction: column;
-                padding: 100px 30px 30px;
-                transition: right 0.4s ease;
-                z-index: 1000;
-                box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+                padding: 100px 2rem 2rem;
+                transition: right 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+                border-left: 2px solid var(--accent-1);
+                z-index: 1100;
+                gap: 1.8rem;
             }
-            
-            .nav-links.active {
-                right: 0;
+            .nav-links.active { right: 0; }
+            .mobile-menu-btn { display: block; }
+            .mobile-menu-overlay {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.7);
+                backdrop-filter: blur(4px);
+                z-index: 1050;
+                transition: 0.3s;
             }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .mobile-menu-overlay.active {
-                display: block;
-            }
-            
-            .hero {
-                padding: 140px 0 80px;
-            }
-            
-            .hero h1 {
-                font-size: 2.3rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .section-title h2 {
-                font-size: 2rem;
-            }
-            
-            .section-title h2::after {
-                width: 70px;
-                bottom: -16px;
-            }
-            
-            .ecosystem-grid {
+            .mobile-menu-overlay.active { display: block; }
+            .features-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.3rem; }
+            .grid-3 {
                 grid-template-columns: 1fr;
-                max-width: 500px;
+                max-width: 400px;
                 margin-left: auto;
                 margin-right: auto;
             }
-            
-            .ecosystem-card {
-                padding: 30px 25px;
-            }
-            
-            .category-title {
-                font-size: 1.6rem;
-            }
-            
-            .contact-grid {
-                grid-template-columns: 1fr;
-                max-width: 500px;
-                margin-left: auto;
-                margin-right: auto;
-            }
-            
-            .footer-content {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .footer-info {
-                text-align: center;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .footer-info p {
-                max-width: 100%;
-            }
-            
-            .social-links {
-                justify-content: center;
-            }
-            
-            .footer-links {
-                justify-content: center;
-                text-align: center;
-            }
-            
-            .footer-links-column {
-                text-align: center;
-            }
+            section { margin-bottom: 60px; }
         }
-        
-        @media (max-width: 576px) {
-            .hero {
-                padding: 130px 0 70px;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .section-title h2 {
-                font-size: 1.8rem;
-            }
-            
-            .section-title h2::after {
-                width: 60px;
-                height: 3px;
-                bottom: -14px;
-            }
-            
-            .section-subtitle {
-                font-size: 1rem;
-                margin: 25px auto 40px;
-            }
-            
-            .cta-button {
-                padding: 14px 30px;
-                font-size: 1rem;
-            }
-            
-            .category-title {
-                font-size: 1.5rem;
-                flex-direction: column;
-                gap: 8px;
-            }
-            
-            .ecosystem-card {
-                padding: 25px 20px;
-            }
-            
-            .ecosystem-card h3 {
-                font-size: 1.4rem;
-            }
-            
-            .card-icon {
-                width: 70px;
-                height: 70px;
-                font-size: 28px;
-            }
-            
-            .service-card {
-                padding: 30px 25px;
-            }
-            
-            .service-card h3 {
-                font-size: 1.6rem;
-            }
-            
-            .contact-card {
-                padding: 25px 20px;
-            }
-            
-            .contact-icon {
-                width: 75px;
-                height: 75px;
-                font-size: 32px;
-            }
-            
-            .contact-card h3 {
-                font-size: 1.4rem;
-            }
-            
-            .cta-section h2 {
-                font-size: 2rem;
-            }
-            
-            .cta-section p {
-                font-size: 1rem;
-            }
-            
-            .feature-item {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                gap: 15px;
-            }
-            
-            .feature-icon {
-                width: 60px;
-                height: 60px;
-                font-size: 24px;
-            }
-            
-            .feature-content h3 {
-                font-size: 1.3rem;
-            }
-            
-            .logo-text {
-                align-items: flex-start;
-            }
-            
-            .logo-subtitle {
-                font-size: 9px;
-            }
-            
-            .commission-amount {
-                font-size: 1.8rem;
-            }
+
+        @media (max-width: 550px) {
+            .container { padding: 0 18px; }
+            .hero { padding-top: 130px; }
+            .section-title h2 { font-size: 1.7rem; }
+            .feature-icon-box { width: 44px; height: 44px; font-size: 1.4rem; }
         }
-        
-        @media (max-width: 400px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .section-title h2 {
-                font-size: 1.7rem;
-            }
-            
-            .ecosystem-card {
-                padding: 22px 18px;
-            }
-            
-            .contact-card {
-                padding: 22px 18px;
-            }
-            
-            .card-link {
-                padding: 8px 16px;
-                font-size: 0.95rem;
-            }
-            
-            .contact-link {
-                padding: 10px 22px;
-                font-size: 0.95rem;
-            }
-            
-            .service-button {
-                padding: 12px 20px;
-                font-size: 1rem;
-            }
-            
-            .container {
-                padding: 0 15px;
-            }
-            
-            .footer-links-column {
-                min-width: 150px;
-            }
-            
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
+
+        ul { list-style: none; margin: 1.2rem 0; }
+        li {
+            margin-bottom: 0.6rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--text-dim);
+        }
+        li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--accent-1);
+            transition: 0.2s;
+        }
+        .contact-link {
+            display: inline-block;
+            margin-top: 0.8rem;
+            padding: 8px 20px;
+            border: 1px solid var(--accent-1);
+            border-radius: 60px;
+            color: var(--accent-1);
+            text-decoration: none;
+            align-self: center;
+            transition: var(--transition);
+        }
+        .contact-link:hover {
+            background: var(--accent-1);
+            color: #0b0e17;
+            box-shadow: var(--glow-sm);
         }
     </style>
 </head>
 <body>
-    <header id="header">
-        <div class="container">
-            <div class="nav-container">
-                <a href="#" class="logo">
-                    <i class="fas fa-shield-alt"></i>
-                    <div class="logo-text">
-                        <span>Mute Ecosystem</span>
-                        <span class="logo-subtitle">КИБЕРБЕЗОПАСНОСТЬ</span>
-                    </div>
-                </a>
-                
-                <div class="nav-links">
-                    <a href="#ecosystem">Экосистема</a>
-                    <a href="#services">Услуги</a>
-                    <a href="#contact">Контакты</a>
-                    <a href="#cta">Начать</a>
-                </div>
-                
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
-            </div>
-        </div>
-    </header>
+<div class="animated-bg"></div>
+<div class="glow-orb" style="top: 10%; left: -5%;"></div>
+<div class="glow-orb" style="bottom: 10%; right: -5%; width: 500px; height: 500px; animation-duration: 25s;"></div>
 
+<header id="header">
+    <div class="container">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <i class="fas fa-shield-virus"></i>
+                <span>Mute::SEC</span>
+            </a>
+            <div class="nav-links">
+                <a href="#ecosystem" data-lang-key="nav_ecosystem">Экосистема</a>
+                <a href="#services" data-lang-key="nav_services">Услуги</a>
+                <a href="#contact" data-lang-key="nav_contacts">Контакты</a>
+                <button class="lang-toggle" id="langSwitch">EN / RU</button>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+            <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+        </div>
+    </div>
+</header>
+
+<main>
     <section class="hero">
         <div class="container">
-            <div class="hero-content">
-                <h1 class="fade-in">Mute Ecosystem</h1>
-                <p class="fade-in">Полноценная экосистема для кибербезопасности, автоматизации и анализа уязвимостей. Инструменты для сканирования, мониторинга и защиты ваших систем.</p>
-                <a href="#ecosystem" class="cta-button fade-in">Исследовать экосистему</a>
-            </div>
+            <h1 class="fade-in" data-lang-key="hero_title">Mute Ecosystem</h1>
+            <p class="fade-in" data-lang-key="hero_desc">Полноценная экосистема для кибербезопасности, автоматизации и анализа уязвимостей. Инструменты для сканирования, мониторинга и защиты ваших систем.</p>
+            <a href="#ecosystem" class="cta-button fade-in" data-lang-key="hero_cta">Исследовать экосистему</a>
         </div>
     </section>
 
     <section id="ecosystem" class="ecosystem">
         <div class="container">
             <div class="section-title fade-in">
-                <h2>Компоненты экосистемы</h2>
+                <h2 data-lang-key="eco_title">// КОМПОНЕНТЫ ЭКОСИСТЕМЫ</h2>
             </div>
-            
-            <p class="section-subtitle fade-in">Все инструменты и ресурсы экосистемы Mute для анализа уязвимостей, сканирования и кибербезопасности</p>
-            
-            <div class="category-section fade-in">
-                <h3 class="category-title"><i class="fas fa-laptop-code"></i> Репозитории на GitHub</h3>
-                <div class="centered-grid">
-                    <div class="ecosystem-card">
-                        <div class="card-icon">
-                            <i class="fas fa-search"></i>
-                        </div>
-                        <h3>FullMute Scanner<span class="badge badge-available">Доступен</span></h3>
-                        <p>Мощный сканер для веб-сайтов, IoT устройств, поиска чувствительных файлов и проверки на CVE уязвимости. Полнофункциональный инструмент для аудита безопасности.</p>
-                        <a href="https://github.com/a11mut3d/FullMute" target="_blank" class="card-link">Открыть репозиторий <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                    
-                    <div class="ecosystem-card">
-                        <div class="card-icon">
-                            <i class="fas fa-exchange-alt"></i>
-                        </div>
-                        <h3>Telegrambot MITM Proxy<span class="badge badge-github">GitHub</span></h3>
-                        <p>Прокси-сервер для анализа трафика Telegram ботов. Позволяет исследовать взаимодействие ботов с API и выявлять потенциальные уязвимости.</p>
-                        <a href="https://github.com/a11mut3d/Telegrambot-MITM" target="_blank" class="card-link">Открыть репозиторий <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                    
-                    <div class="ecosystem-card">
-                        <div class="card-icon">
-                            <i class="fas fa-code-branch"></i>
-                        </div>
-                        <h3>CGE<span class="badge badge-cge">Новый</span></h3>
-                        <p>Инструмент пассивной разведки и построения графов, который выявляет поддомены, конечные точки и связи между хостами посредством веб-краулинга и анализа.</p>
-                        <a href="https://github.com/a11mut3d/CGE" target="_blank" class="card-link">Открыть репозиторий <i class="fas fa-arrow-right"></i></a>
-                    </div>
+            <p class="section-subtitle fade-in" data-lang-key="eco_subtitle">Инструменты для разведки, сканирования и анализа трафика</p>
+
+            <div class="grid-3">
+                <div class="ecosystem-card fade-in">
+                    <div class="card-icon"><i class="fas fa-search"></i></div>
+                    <h3>FullMute Scanner<span class="badge-github">GitHub</span></h3>
+                    <p data-lang-key="fullmute_desc">Мощный сканер для веб-сайтов, IoT устройств, поиска CVE и чувствительных файлов.</p>
+                    <a href="https://github.com/a11mut3d/FullMute" target="_blank" class="card-link">GitHub <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="ecosystem-card fade-in">
+                    <div class="card-icon"><i class="fas fa-exchange-alt"></i></div>
+                    <h3>Telegrambot MITM Proxy<span class="badge-github">GitHub</span></h3>
+                    <p data-lang-key="mitm_desc">Прокси-сервер для анализа трафика Telegram ботов и выявления уязвимостей.</p>
+                    <a href="https://github.com/a11mut3d/Telegrambot-MITM" target="_blank" class="card-link">GitHub <i class="fas fa-arrow-right"></i></a>
+                </div>
+                <div class="ecosystem-card fade-in">
+                    <div class="card-icon"><i class="fas fa-project-diagram"></i></div>
+                    <h3>CGE<span class="badge-github">GitHub</span></h3>
+                    <p data-lang-key="cge_desc">Пассивная разведка, графы поддоменов и связей между хостами через веб-краулинг.</p>
+                    <a href="https://github.com/a11mut3d/CGE" target="_blank" class="card-link">GitHub <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
-            
-            <div class="category-section fade-in">
-                <h3 class="category-title"><i class="fas fa-bullhorn"></i> Социальные сети и контент</h3>
-                <div class="centered-grid">
-                    <div class="ecosystem-card">
-                        <div class="card-icon">
-                            <i class="fab fa-telegram"></i>
-                        </div>
-                        <h3>Telegram Блог<span class="badge badge-social">Контент</span></h3>
-                        <p>Центральный источник информации экосистемы. Статьи, руководства, разборы уязвимостей и последние новости о кибербезопасности.</p>
-                        <a href="https://t.me/rootlocalhostvibe" target="_blank" class="card-link">Перейти в блог <i class="fas fa-arrow-right"></i></a>
+
+            <div style="margin-top: 4rem;">
+                <div class="section-title fade-in">
+                    <h2><i class="fab fa-telegram"></i> SOCIAL & CONTENT</h2>
+                </div>
+                <div class="grid-3">
+                    <div class="ecosystem-card fade-in">
+                        <div class="card-icon"><i class="fab fa-telegram"></i></div>
+                        <h3>Telegram Блог<span class="badge-github">Контент</span></h3>
+                        <p data-lang-key="tgblog_desc">Статьи, разборы уязвимостей, новости кибербезопасности.</p>
+                        <a href="https://t.me/rootlocalhostvibe" target="_blank" class="card-link">Перейти <i class="fas fa-arrow-right"></i></a>
                     </div>
-                    
-                    <div class="ecosystem-card">
-                        <div class="card-icon">
-                            <i class="fab fa-tiktok"></i>
-                        </div>
-                        <h3>TikTok Аккаунт<span class="badge badge-social">Контент</span></h3>
-                        <p>Обучающий контент по кибербезопасности, разборы уязвимостей и практические советы по защите ваших систем в формате коротких видео.</p>
-                        <a href="https://www.tiktok.com/@kunideveloper" target="_blank" class="card-link">Перейти в TikTok <i class="fas fa-arrow-right"></i></a>
+                    <div class="ecosystem-card fade-in">
+                        <div class="card-icon"><i class="fab fa-tiktok"></i></div>
+                        <h3>TikTok Аккаунт<span class="badge-github">Видео</span></h3>
+                        <p data-lang-key="tiktok_desc">Обучающие ролики по кибербезопасности и пентесту.</p>
+                        <a href="https://www.tiktok.com/@kunideveloper" target="_blank" class="card-link">Перейти <i class="fas fa-arrow-right"></i></a>
                     </div>
                 </div>
             </div>
@@ -1261,77 +689,44 @@
     <section id="services" class="services">
         <div class="container">
             <div class="section-title fade-in">
-                <h2>Профессиональные услуги</h2>
+                <h2 data-lang-key="services_title">// ПРОФЕССИОНАЛЬНЫЕ УСЛУГИ</h2>
             </div>
-            
-            <p class="section-subtitle fade-in">Комплексные услуги в области кибербезопасности, автоматизации процессов и партнерского сотрудничества</p>
-            
-            <div class="services-grid">
+            <p class="section-subtitle fade-in" data-lang-key="services_sub">Пентест, автоматизация, партнёрство — всё для этичного взлома и защиты</p>
+            <div class="grid-3">
                 <div class="service-card fade-in">
-                    <div class="service-icon pentest-icon">
-                        <i class="fas fa-user-secret"></i>
-                    </div>
-                    <h3>Пентест на заказ<span class="badge badge-service">Безопасность</span></h3>
-                    <p>Профессиональное тестирование на проникновение для различных систем и приложений. Комплексная проверка безопасности с подробным отчетом.</p>
-                    
-                    <h4 style="margin-top: 25px; margin-bottom: 15px; color: var(--light); text-align: center;">Что включают услуги:</h4>
+                    <div class="service-icon"><i class="fas fa-user-secret"></i></div>
+                    <h3 data-lang-key="pentest_title">Пентест на заказ</h3>
+                    <p data-lang-key="pentest_desc">Профессиональное тестирование на проникновение с детальным отчётом.</p>
                     <ul>
-                        <li>Тестирование веб-приложений на уязвимости</li>
-                        <li>Анализ безопасности сетевой инфраструктуры</li>
-                        <li>Проверка мобильных приложений (iOS/Android)</li>
-                        <li>Социальная инженерия и фишинг-тестирование</li>
-                        <li>Аудит конфигурации безопасности</li>
-                        <li>Тестирование на проникновение в облачные среды</li>
+                        <li data-lang-key="pentest_li1">Веб-приложения, API</li>
+                        <li data-lang-key="pentest_li2">Сетевая инфраструктура</li>
+                        <li data-lang-key="pentest_li3">Мобильные приложения</li>
+                        <li data-lang-key="pentest_li4">Социальная инженерия</li>
                     </ul>
-                    
-                    <a href="http://t.me/KuniDeveloper" target="_blank" class="service-button">Заказать пентест</a>
+                    <a href="http://t.me/KuniDeveloper" target="_blank" class="service-button" data-lang-key="pentest_btn">Заказать пентест</a>
                 </div>
-                
                 <div class="service-card fade-in">
-                    <div class="service-icon python-icon">
-                        <i class="fab fa-python"></i>
-                    </div>
-                    <h3>Автоматизация на Python<span class="badge badge-python">Программирование</span></h3>
-                    <p>Создание Python-скриптов для автоматизации рутинных задач и бизнес-процессов. Быстрые решения для оптимизации работы.</p>
-                    
-                    <h4 style="margin-top: 25px; margin-bottom: 15px; color: var(--light); text-align: center;">Примеры задач:</h4>
+                    <div class="service-icon"><i class="fab fa-python"></i></div>
+                    <h3 data-lang-key="auto_title">Автоматизация на Python</h3>
+                    <p data-lang-key="auto_desc">Скрипты для бизнес-задач, парсинг, боты, интеграции.</p>
                     <ul>
-                        <li>Автоматизация сбора и обработки данных</li>
-                        <li>Скрипты для взаимодействия с API</li>
-                        <li>Автоматизация отчетности и аналитики</li>
-                        <li>Боты для Telegram и других мессенджеров</li>
-                        <li>Решение специфических бизнес-задач</li>
-                        <li>Интеграция различных систем и сервисов</li>
+                        <li data-lang-key="auto_li1">Сбор и обработка данных</li>
+                        <li data-lang-key="auto_li2">Telegram боты любой сложности</li>
+                        <li data-lang-key="auto_li3">API-интеграции</li>
+                        <li data-lang-key="auto_li4">Репорты и аналитика</li>
                     </ul>
-                    
-                    <a href="http://t.me/KuniDeveloper" target="_blank" class="service-button python-button">Заказать автоматизацию</a>
+                    <a href="http://t.me/KuniDeveloper" target="_blank" class="service-button" data-lang-key="auto_btn">Заказать автоматизацию</a>
                 </div>
-                
                 <div class="service-card fade-in">
-                    <div class="service-icon partner-icon">
-                        <i class="fas fa-handshake"></i>
-                    </div>
-                    <h3>Партнерская программа<span class="badge badge-partner">Сотрудничество</span></h3>
-                    <p>Приводите клиентов и получайте вознаграждение за каждую выполненную работу. Прозрачные условия и регулярные выплаты.</p>
-                    
+                    <div class="service-icon"><i class="fas fa-handshake"></i></div>
+                    <h3 data-lang-key="partner_title">Партнёрская программа</h3>
+                    <p data-lang-key="partner_desc">Приводите клиентов и зарабатывайте 15% с каждого заказа.</p>
                     <div class="commission-info">
-                        <h4>Ваше вознаграждение:</h4>
-                        <p>За каждого приведенного клиента вы получаете</p>
+                        <h4 data-lang-key="partner_percent">Ваше вознаграждение:</h4>
                         <div class="commission-amount">15%</div>
-                        <p>от суммы каждого заказа, который он оплачивает</p>
+                        <p data-lang-key="partner_desc2">от каждого оплаченного заказа</p>
                     </div>
-                    
-                    <h4 style="margin-top: 25px; margin-bottom: 15px; color: var(--light); text-align: center;">Как это работает:</h4>
-                    <ul>
-                        <li>Вы рекомендуете клиенту обратиться ко мне</li>
-                        <li>Клиент сообщает ваше имя при заказе</li>
-                        <li>После выполнения работы и оплаты</li>
-                        <li>Вы получаете 15% от суммы заказа</li>
-                        <li>Выплаты происходят моментально</li>
-                        <li>Без ограничений по количеству приведенных клиентов</li>
-                    </ul>
-                    
-                    <a href="http://t.me/KuniDeveloper" target="_blank" class="service-button partner-button">Стать партнером</a>
+                    <a href="http://t.me/KuniDeveloper" target="_blank" class="service-button" data-lang-key="partner_btn">Стать партнёром</a>
                 </div>
             </div>
         </div>
@@ -1340,36 +735,22 @@
     <section id="contact" class="contact-section">
         <div class="container">
             <div class="section-title fade-in">
-                <h2>Контакты для связи</h2>
+                <h2 data-lang-key="contact_title">// КОНТАКТЫ ДЛЯ СВЯЗИ</h2>
             </div>
-            
-            <p class="section-subtitle fade-in">Свяжитесь со мной для заказа пентестов, автоматизации, консультаций или сотрудничества</p>
-            
-            <div class="contact-grid">
+            <div class="grid-3">
                 <div class="contact-card fade-in">
-                    <div class="contact-icon">
-                        <i class="fab fa-telegram"></i>
-                    </div>
-                    <h3>Telegram для заказов</h3>
-                    <p>Основной канал связи для заказа услуг, консультаций и сотрудничества.</p>
+                    <div class="contact-icon"><i class="fab fa-telegram"></i></div>
+                    <h3 data-lang-key="contact_tg_order">Telegram (заказы)</h3>
                     <a href="http://t.me/KuniDeveloper" target="_blank" class="contact-link">@KuniDeveloper</a>
                 </div>
-                
                 <div class="contact-card fade-in">
-                    <div class="contact-icon">
-                        <i class="fab fa-github"></i>
-                    </div>
-                    <h3>GitHub профиль</h3>
-                    <p>Исходный код всех проектов, инструментов и утилит экосистемы Mute.</p>
+                    <div class="contact-icon"><i class="fab fa-github"></i></div>
+                    <h3>GitHub</h3>
                     <a href="https://github.com/a11mut3d/" target="_blank" class="contact-link">a11mut3d</a>
                 </div>
-                
                 <div class="contact-card fade-in">
-                    <div class="contact-icon">
-                        <i class="fab fa-telegram"></i>
-                    </div>
-                    <h3>Telegram блог</h3>
-                    <p>Образовательный контент, разборы уязвимостей и новости кибербезопасности.</p>
+                    <div class="contact-icon"><i class="fab fa-telegram"></i></div>
+                    <h3 data-lang-key="contact_tg_blog">Telegram блог</h3>
                     <a href="https://t.me/rootlocalhostvibe" target="_blank" class="contact-link">@rootlocalhostvibe</a>
                 </div>
             </div>
@@ -1379,196 +760,147 @@
     <section class="features">
         <div class="container">
             <div class="section-title fade-in">
-                <h2>Ключевые возможности</h2>
+                <h2 data-lang-key="features_title">// КЛЮЧЕВЫЕ ВОЗМОЖНОСТИ</h2>
             </div>
-            
-            <p class="section-subtitle fade-in">Преимущества использования экосистемы Mute для вашей кибербезопасности и автоматизации</p>
-            
             <div class="features-grid">
                 <div class="feature-item fade-in">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
+                    <div class="feature-icon-box"><i class="fas fa-shield-alt"></i></div>
                     <div class="feature-content">
-                        <h3>Комплексная защита</h3>
-                        <p>Интеграция всех компонентов обеспечивает многоуровневую защиту ваших систем и приложений.</p>
+                        <h3 data-lang-key="feat1_title">Комплексная защита</h3>
+                        <p data-lang-key="feat1_desc">Интеграция всех компонентов для многоуровневой безопасности.</p>
                     </div>
                 </div>
-                
                 <div class="feature-item fade-in">
-                    <div class="feature-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
+                    <div class="feature-icon-box"><i class="fas fa-robot"></i></div>
                     <div class="feature-content">
-                        <h3>Автоматизация процессов</h3>
-                        <p>Python-скрипты для автоматизации рутинных задач, что экономит время и повышает эффективность.</p>
+                        <h3 data-lang-key="feat2_title">Автоматизация процессов</h3>
+                        <p data-lang-key="feat2_desc">Python-скрипты, экономящие время и ресурсы.</p>
                     </div>
                 </div>
-                
                 <div class="feature-item fade-in">
-                    <div class="feature-icon">
-                        <i class="fas fa-sync-alt"></i>
-                    </div>
+                    <div class="feature-icon-box"><i class="fas fa-database"></i></div>
                     <div class="feature-content">
-                        <h3>Актуальные данные</h3>
-                        <p>Постоянное обновление информации об уязвимостях и сигнатур для обеспечения максимальной защиты.</p>
+                        <h3 data-lang-key="feat3_title">Актуальные данные</h3>
+                        <p data-lang-key="feat3_desc">Постоянное обновление сигнатур и базы CVE.</p>
                     </div>
                 </div>
-                
                 <div class="feature-item fade-in">
-                    <div class="feature-icon">
-                        <i class="fas fa-hand-holding-usd"></i>
-                    </div>
+                    <div class="feature-icon-box"><i class="fas fa-handshake"></i></div>
                     <div class="feature-content">
-                        <h3>Выгодное сотрудничество</h3>
-                        <p>Партнерская программа с 15% вознаграждением за каждого приведенного клиента.</p>
+                        <h3 data-lang-key="feat4_title">Выгодное партнёрство</h3>
+                        <p data-lang-key="feat4_desc">15% с каждого приведённого клиента.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+</main>
 
-    <section id="cta" class="cta-section">
-        <div class="container">
-            <h2 class="fade-in">Начните использовать Mute Ecosystem сегодня</h2>
-            <p class="fade-in">Присоединяйтесь к сообществу специалистов по кибербезопасности. Получите доступ ко всем инструментам экосистемы и начните защищать свои системы от угроз, автоматизировать задачи или стать партнером.</p>
-            <a href="#ecosystem" class="cta-button fade-in">Исследовать экосистему</a>
+<footer>
+    <div class="container">
+        <div class="footer-content">
+            <div><div style="display:flex; gap:10px; margin-bottom:1rem;"><i class="fas fa-shield-virus" style="color:var(--accent-1);"></i><strong style="font-family:monospace;">Mute Ecosystem</strong></div><p data-lang-key="footer_desc">Современная экосистема для пентеста и автоматизации.</p><div class="social-links"><a href="https://github.com/a11mut3d/"><i class="fab fa-github"></i></a><a href="http://t.me/KuniDeveloper"><i class="fab fa-telegram"></i></a><a href="https://t.me/rootlocalhostvibe"><i class="fab fa-telegram"></i></a><a href="https://www.tiktok.com/@kunideveloper"><i class="fab fa-tiktok"></i></a></div></div>
+            <div><h4 data-lang-key="footer_tools">Инструменты</h4><ul><li><a href="https://github.com/a11mut3d/FullMute" style="color:var(--text-dim);">FullMute Scanner</a></li><li><a href="https://github.com/a11mut3d/Telegrambot-MITM" style="color:var(--text-dim);">MITM прокси</a></li><li><a href="https://github.com/a11mut3d/CGE" style="color:var(--text-dim);">CGE</a></li></ul></div>
+            <div><h4 data-lang-key="footer_services">Услуги</h4><ul><li><a href="#services" data-lang-key="footer_pentest" style="color:var(--text-dim);">Пентест</a></li><li><a href="#services" data-lang-key="footer_auto" style="color:var(--text-dim);">Автоматизация</a></li><li><a href="#services" data-lang-key="footer_partner" style="color:var(--text-dim);">Партнёрство</a></li></ul></div>
         </div>
-    </section>
+        <div class="copyright"><p>© 2025 Mute Ecosystem | next-gen security</p></div>
+    </div>
+</footer>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-info">
-                    <div class="footer-logo">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>Mute Ecosystem</span>
-                    </div>
-                    <p>Современная экосистема для кибербезопасности, автоматизации и анализа уязвимостей. Инструменты для сканирования и защиты систем.</p>
-                    <div class="social-links">
-                        <a href="https://github.com/a11mut3d/" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-                        <a href="http://t.me/KuniDeveloper" target="_blank" title="Telegram для заказов"><i class="fab fa-telegram"></i></a>
-                        <a href="https://t.me/rootlocalhostvibe" target="_blank" title="Telegram блог"><i class="fab fa-telegram"></i></a>
-                        <a href="https://www.tiktok.com/@kunideveloper" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
-                    </div>
-                </div>
-                
-                <div class="footer-links">
-                    <div class="footer-links-column">
-                        <h4>Инструменты</h4>
-                        <ul>
-                            <li><a href="https://github.com/a11mut3d/FullMute-Scanner" target="_blank">FullMute Scanner</a></li>
-                            <li><a href="https://github.com/a11mut3d/Telegrambot-MITM" target="_blank">MITM прокси</a></li>
-                            <li><a href="https://github.com/a11mut3d/CGE" target="_blank">CGE</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-links-column">
-                        <h4>Услуги</h4>
-                        <ul>
-                            <li><a href="#services">Пентест на заказ</a></li>
-                            <li><a href="#services">Автоматизация на Python</a></li>
-                            <li><a href="#services">Партнерская программа</a></li>
-                            <li><a href="http://t.me/KuniDeveloper" target="_blank">Консультации</a></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="footer-links-column">
-                        <h4>Контент</h4>
-                        <ul>
-                            <li><a href="https://t.me/rootlocalhostvibe" target="_blank">Telegram Блог</a></li>
-                            <li><a href="https://www.tiktok.com/@kunideveloper" target="_blank">TikTok</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="copyright">
-                <p>&copy; 2025 Mute Ecosystem. Все права защищены.</p>
-            </div>
-        </div>
-    </footer>
+<script>
+    (function(){
+        const translations = {
+            ru: {
+                nav_ecosystem: "Экосистема", nav_services: "Услуги", nav_contacts: "Контакты",
+                hero_title: "Mute Ecosystem", hero_desc: "Полноценная экосистема для кибербезопасности, автоматизации и анализа уязвимостей. Инструменты для сканирования, мониторинга и защиты ваших систем.", hero_cta: "Исследовать экосистему",
+                eco_title: "// КОМПОНЕНТЫ ЭКОСИСТЕМЫ", eco_subtitle: "Инструменты для разведки, сканирования и анализа трафика",
+                fullmute_desc: "Мощный сканер для веб-сайтов, IoT устройств, поиска CVE и чувствительных файлов.", mitm_desc: "Прокси-сервер для анализа трафика Telegram ботов и выявления уязвимостей.", cge_desc: "Пассивная разведка, графы поддоменов и связей между хостами через веб-краулинг.",
+                tgblog_desc: "Статьи, разборы уязвимостей, новости кибербезопасности.", tiktok_desc: "Обучающие ролики по кибербезопасности и пентесту.",
+                services_title: "// ПРОФЕССИОНАЛЬНЫЕ УСЛУГИ", services_sub: "Пентест, автоматизация, партнёрство — всё для этичного взлома и защиты",
+                pentest_title: "Пентест на заказ", pentest_desc: "Профессиональное тестирование на проникновение с детальным отчётом.", pentest_li1: "Веб-приложения, API", pentest_li2: "Сетевая инфраструктура", pentest_li3: "Мобильные приложения", pentest_li4: "Социальная инженерия", pentest_btn: "Заказать пентест",
+                auto_title: "Автоматизация на Python", auto_desc: "Скрипты для бизнес-задач, парсинг, боты, интеграции.", auto_li1: "Сбор и обработка данных", auto_li2: "Telegram боты любой сложности", auto_li3: "API-интеграции", auto_li4: "Репорты и аналитика", auto_btn: "Заказать автоматизацию",
+                partner_title: "Партнёрская программа", partner_desc: "Приводите клиентов и зарабатывайте 15% с каждого заказа.", partner_percent: "Ваше вознаграждение:", partner_desc2: "от каждого оплаченного заказа", partner_btn: "Стать партнёром",
+                contact_title: "// КОНТАКТЫ ДЛЯ СВЯЗИ", contact_tg_order: "Telegram (заказы)", contact_tg_blog: "Telegram блог",
+                features_title: "// КЛЮЧЕВЫЕ ВОЗМОЖНОСТИ", feat1_title: "Комплексная защита", feat1_desc: "Интеграция всех компонентов для многоуровневой безопасности.", feat2_title: "Автоматизация процессов", feat2_desc: "Python-скрипты, экономящие время и ресурсы.", feat3_title: "Актуальные данные", feat3_desc: "Постоянное обновление сигнатур и базы CVE.", feat4_title: "Выгодное партнёрство", feat4_desc: "15% с каждого приведённого клиента.",
+                footer_desc: "Современная экосистема для пентеста и автоматизации.", footer_tools: "Инструменты", footer_services: "Услуги", footer_pentest: "Пентест", footer_auto: "Автоматизация", footer_partner: "Партнёрство"
+            },
+            en: {
+                nav_ecosystem: "Ecosystem", nav_services: "Services", nav_contacts: "Contacts",
+                hero_title: "Mute Ecosystem", hero_desc: "A full-featured cybersecurity ecosystem for vulnerability analysis, scanning, and automation.", hero_cta: "Explore Ecosystem",
+                eco_title: "// ECOSYSTEM COMPONENTS", eco_subtitle: "Reconnaissance, scanning & traffic analysis tools",
+                fullmute_desc: "Powerful scanner for websites, IoT devices, CVE search and sensitive files.", mitm_desc: "Proxy server for analyzing Telegram bot traffic and uncovering vulnerabilities.", cge_desc: "Passive recon, subdomain graphs and host relationships via web crawling.",
+                tgblog_desc: "Articles, vulnerability breakdowns, cybersecurity news.", tiktok_desc: "Educational cybersecurity & pentest shorts.",
+                services_title: "// PROFESSIONAL SERVICES", services_sub: "Pentesting, automation, partnership — ethical hacking & defense",
+                pentest_title: "Custom Pentesting", pentest_desc: "Professional penetration testing with detailed report.", pentest_li1: "Web apps, API", pentest_li2: "Network infrastructure", pentest_li3: "Mobile apps", pentest_li4: "Social engineering", pentest_btn: "Order Pentest",
+                auto_title: "Python Automation", auto_desc: "Scripts for business tasks, scraping, bots, integrations.", auto_li1: "Data collection & processing", auto_li2: "Custom Telegram bots", auto_li3: "API integrations", auto_li4: "Reports & analytics", auto_btn: "Order Automation",
+                partner_title: "Partnership Program", partner_desc: "Refer clients and earn 15% from each order.", partner_percent: "Your reward:", partner_desc2: "from every paid order", partner_btn: "Become a Partner",
+                contact_title: "// CONTACT", contact_tg_order: "Telegram (orders)", contact_tg_blog: "Telegram blog",
+                features_title: "// KEY FEATURES", feat1_title: "Comprehensive security", feat1_desc: "Multilayer defense via integrated tools.", feat2_title: "Process automation", feat2_desc: "Python scripts saving time and resources.", feat3_title: "Up-to-date data", feat3_desc: "Constant updates of signatures and CVE.", feat4_title: "Profit partnership", feat4_desc: "15% from each referred client.",
+                footer_desc: "Modern hacker ecosystem for pentesting and automation.", footer_tools: "Tools", footer_services: "Services", footer_pentest: "Pentest", footer_auto: "Automation", footer_partner: "Partnership"
+            }
+        };
+        let currentLang = 'ru';
+        function updateLanguage(lang) {
+            document.querySelectorAll('[data-lang-key]').forEach(el => {
+                const key = el.getAttribute('data-lang-key');
+                if(translations[lang][key]) el.innerText = translations[lang][key];
+            });
+            currentLang = lang;
+            localStorage.setItem('mute_lang', lang);
+        }
+        const toggleBtn = document.getElementById('langSwitch');
+        if(toggleBtn) {
+            toggleBtn.addEventListener('click', () => {
+                const newLang = currentLang === 'ru' ? 'en' : 'ru';
+                updateLanguage(newLang);
+                toggleBtn.innerText = newLang === 'ru' ? 'EN / RU' : 'RU / EN';
+            });
+        }
+        const savedLang = localStorage.getItem('mute_lang');
+        if(savedLang && (savedLang === 'en' || savedLang === 'ru')) {
+            updateLanguage(savedLang);
+            if(toggleBtn) toggleBtn.innerText = savedLang === 'ru' ? 'EN / RU' : 'RU / EN';
+        } else updateLanguage('ru');
+    })();
 
-    <script>
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
-        const navLinks = document.querySelector('.nav-links');
-        const header = document.getElementById('header');
-        
-        mobileMenuBtn.addEventListener('click', function() {
+    const menuBtn = document.getElementById('mobileMenuBtn');
+    const overlay = document.getElementById('mobileMenuOverlay');
+    const navLinks = document.querySelector('.nav-links');
+    if(menuBtn){
+        const closeMenu = () => {
+            navLinks.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        };
+        menuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
             navLinks.classList.toggle('active');
-            mobileMenuOverlay.classList.toggle('active');
+            overlay.classList.toggle('active');
             document.body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : 'auto';
         });
-        
-        mobileMenuOverlay.addEventListener('click', function() {
-            navLinks.classList.remove('active');
-            mobileMenuOverlay.classList.remove('active');
-            document.body.style.overflow = 'auto';
+        overlay.addEventListener('click', closeMenu);
+        document.querySelectorAll('.nav-links a').forEach(link => link.addEventListener('click', closeMenu));
+    }
+
+    const faders = document.querySelectorAll('.fade-in');
+    const appearObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if(entry.isIntersecting) entry.target.classList.add('visible');
         });
-        
-        document.querySelectorAll('.nav-links a').forEach(link => {
-            link.addEventListener('click', function() {
-                navLinks.classList.remove('active');
-                mobileMenuOverlay.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-        });
-        
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
-                header.classList.add('header-scrolled');
-            } else {
-                header.classList.remove('header-scrolled');
-            }
-        });
-        
-        const fadeElements = document.querySelectorAll('.fade-in');
-        
-        const fadeInOnScroll = function() {
-            fadeElements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < window.innerHeight - elementVisible) {
-                    element.classList.add('visible');
-                }
-            });
-        };
-        
-        window.addEventListener('load', fadeInOnScroll);
-        window.addEventListener('scroll', fadeInOnScroll);
-        
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
+    }, { threshold: 0.1 });
+    faders.forEach(el => appearObserver.observe(el));
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if(href === '#') return;
+            const target = document.querySelector(href);
+            if(target){
                 e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 100,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            const cards = document.querySelectorAll('.ecosystem-card, .contact-card');
-            cards.forEach((card, index) => {
-                card.style.animationDelay = `${index * 0.1}s`;
-            });
-            
-            if (window.innerWidth <= 768) {
-                const featureItems = document.querySelectorAll('.feature-item');
-                featureItems.forEach((item, index) => {
-                    item.style.animationDelay = `${index * 0.15}s`;
-                });
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
-    </script>
+    });
+</script>
 </body>
 </html>
