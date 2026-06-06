@@ -289,6 +289,12 @@
             box-shadow: 0 2px 0 rgba(255,123,44,0.2);
         }
 
+        /* новый стиль для заголовков без // */
+        .section-title h2 i {
+            margin-right: 8px;
+            color: var(--accent-1);
+        }
+
         .section-subtitle {
             text-align: center;
             color: var(--text-dim);
@@ -639,7 +645,7 @@
     <section id="ecosystem" class="ecosystem">
         <div class="container">
             <div class="section-title fade-in">
-                <h2 data-lang-key="eco_title">// КОМПОНЕНТЫ ЭКОСИСТЕМЫ</h2>
+                <h2><i class="fas fa-cubes"></i> КОМПОНЕНТЫ ЭКОСИСТЕМЫ</h2>
             </div>
             <p class="section-subtitle fade-in" data-lang-key="eco_subtitle">Инструменты для разведки, сканирования и анализа трафика</p>
 
@@ -663,33 +669,14 @@
                     <a href="https://github.com/a11mut3d/CGE" target="_blank" class="card-link">GitHub <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
-
-            <div style="margin-top: 4rem;">
-                <div class="section-title fade-in">
-                    <h2><i class="fab fa-telegram"></i> SOCIAL & CONTENT</h2>
-                </div>
-                <div class="grid-3">
-                    <div class="ecosystem-card fade-in">
-                        <div class="card-icon"><i class="fab fa-telegram"></i></div>
-                        <h3>Telegram Блог<span class="badge-github">Контент</span></h3>
-                        <p data-lang-key="tgblog_desc">Статьи, разборы уязвимостей, новости кибербезопасности.</p>
-                        <a href="https://t.me/rootlocalhostvibe" target="_blank" class="card-link">Перейти <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                    <div class="ecosystem-card fade-in">
-                        <div class="card-icon"><i class="fab fa-tiktok"></i></div>
-                        <h3>TikTok Аккаунт<span class="badge-github">Видео</span></h3>
-                        <p data-lang-key="tiktok_desc">Обучающие ролики по кибербезопасности и пентесту.</p>
-                        <a href="https://www.tiktok.com/@kunideveloper" target="_blank" class="card-link">Перейти <i class="fas fa-arrow-right"></i></a>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
+    <!-- SERVICES (Профессиональные услуги) теперь идут перед SOCIAL & CONTENT -->
     <section id="services" class="services">
         <div class="container">
             <div class="section-title fade-in">
-                <h2 data-lang-key="services_title">// ПРОФЕССИОНАЛЬНЫЕ УСЛУГИ</h2>
+                <h2><i class="fas fa-bolt"></i> ПРОФЕССИОНАЛЬНЫЕ УСЛУГИ</h2>
             </div>
             <p class="section-subtitle fade-in" data-lang-key="services_sub">Пентест, автоматизация, партнёрство — всё для этичного взлома и защиты</p>
             <div class="grid-3">
@@ -732,10 +719,31 @@
         </div>
     </section>
 
+    <!-- SOCIAL & CONTENT теперь после услуг -->
+    <div class="container">
+        <div class="section-title fade-in">
+            <h2><i class="fab fa-telegram"></i> SOCIAL & CONTENT</h2>
+        </div>
+        <div class="grid-3">
+            <div class="ecosystem-card fade-in">
+                <div class="card-icon"><i class="fab fa-telegram"></i></div>
+                <h3>Telegram Блог<span class="badge-github">Контент</span></h3>
+                <p data-lang-key="tgblog_desc">Статьи, разборы уязвимостей, новости кибербезопасности.</p>
+                <a href="https://t.me/rootlocalhostvibe" target="_blank" class="card-link">Перейти <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="ecosystem-card fade-in">
+                <div class="card-icon"><i class="fab fa-tiktok"></i></div>
+                <h3>TikTok Аккаунт<span class="badge-github">Видео</span></h3>
+                <p data-lang-key="tiktok_desc">Обучающие ролики по кибербезопасности и пентесту.</p>
+                <a href="https://www.tiktok.com/@kunideveloper" target="_blank" class="card-link">Перейти <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
     <section id="contact" class="contact-section">
         <div class="container">
             <div class="section-title fade-in">
-                <h2 data-lang-key="contact_title">// КОНТАКТЫ ДЛЯ СВЯЗИ</h2>
+                <h2><i class="fas fa-envelope"></i> КОНТАКТЫ ДЛЯ СВЯЗИ</h2>
             </div>
             <div class="grid-3">
                 <div class="contact-card fade-in">
@@ -760,7 +768,7 @@
     <section class="features">
         <div class="container">
             <div class="section-title fade-in">
-                <h2 data-lang-key="features_title">// КЛЮЧЕВЫЕ ВОЗМОЖНОСТИ</h2>
+                <h2><i class="fas fa-star"></i> КЛЮЧЕВЫЕ ВОЗМОЖНОСТИ</h2>
             </div>
             <div class="features-grid">
                 <div class="feature-item fade-in">
@@ -813,29 +821,29 @@
             ru: {
                 nav_ecosystem: "Экосистема", nav_services: "Услуги", nav_contacts: "Контакты",
                 hero_title: "Mute Ecosystem", hero_desc: "Полноценная экосистема для кибербезопасности, автоматизации и анализа уязвимостей. Инструменты для сканирования, мониторинга и защиты ваших систем.", hero_cta: "Исследовать экосистему",
-                eco_title: "// КОМПОНЕНТЫ ЭКОСИСТЕМЫ", eco_subtitle: "Инструменты для разведки, сканирования и анализа трафика",
+                eco_subtitle: "Инструменты для разведки, сканирования и анализа трафика",
                 fullmute_desc: "Мощный сканер для веб-сайтов, IoT устройств, поиска CVE и чувствительных файлов.", mitm_desc: "Прокси-сервер для анализа трафика Telegram ботов и выявления уязвимостей.", cge_desc: "Пассивная разведка, графы поддоменов и связей между хостами через веб-краулинг.",
                 tgblog_desc: "Статьи, разборы уязвимостей, новости кибербезопасности.", tiktok_desc: "Обучающие ролики по кибербезопасности и пентесту.",
-                services_title: "// ПРОФЕССИОНАЛЬНЫЕ УСЛУГИ", services_sub: "Пентест, автоматизация, партнёрство — всё для этичного взлома и защиты",
+                services_sub: "Пентест, автоматизация, партнёрство — всё для этичного взлома и защиты",
                 pentest_title: "Пентест на заказ", pentest_desc: "Профессиональное тестирование на проникновение с детальным отчётом.", pentest_li1: "Веб-приложения, API", pentest_li2: "Сетевая инфраструктура", pentest_li3: "Мобильные приложения", pentest_li4: "Социальная инженерия", pentest_btn: "Заказать пентест",
                 auto_title: "Автоматизация на Python", auto_desc: "Скрипты для бизнес-задач, парсинг, боты, интеграции.", auto_li1: "Сбор и обработка данных", auto_li2: "Telegram боты любой сложности", auto_li3: "API-интеграции", auto_li4: "Репорты и аналитика", auto_btn: "Заказать автоматизацию",
                 partner_title: "Партнёрская программа", partner_desc: "Приводите клиентов и зарабатывайте 15% с каждого заказа.", partner_percent: "Ваше вознаграждение:", partner_desc2: "от каждого оплаченного заказа", partner_btn: "Стать партнёром",
-                contact_title: "// КОНТАКТЫ ДЛЯ СВЯЗИ", contact_tg_order: "Telegram (заказы)", contact_tg_blog: "Telegram блог",
-                features_title: "// КЛЮЧЕВЫЕ ВОЗМОЖНОСТИ", feat1_title: "Комплексная защита", feat1_desc: "Интеграция всех компонентов для многоуровневой безопасности.", feat2_title: "Автоматизация процессов", feat2_desc: "Python-скрипты, экономящие время и ресурсы.", feat3_title: "Актуальные данные", feat3_desc: "Постоянное обновление сигнатур и базы CVE.", feat4_title: "Выгодное партнёрство", feat4_desc: "15% с каждого приведённого клиента.",
+                contact_tg_order: "Telegram (заказы)", contact_tg_blog: "Telegram блог",
+                feat1_title: "Комплексная защита", feat1_desc: "Интеграция всех компонентов для многоуровневой безопасности.", feat2_title: "Автоматизация процессов", feat2_desc: "Python-скрипты, экономящие время и ресурсы.", feat3_title: "Актуальные данные", feat3_desc: "Постоянное обновление сигнатур и базы CVE.", feat4_title: "Выгодное партнёрство", feat4_desc: "15% с каждого приведённого клиента.",
                 footer_desc: "Современная экосистема для пентеста и автоматизации.", footer_tools: "Инструменты", footer_services: "Услуги", footer_pentest: "Пентест", footer_auto: "Автоматизация", footer_partner: "Партнёрство"
             },
             en: {
                 nav_ecosystem: "Ecosystem", nav_services: "Services", nav_contacts: "Contacts",
                 hero_title: "Mute Ecosystem", hero_desc: "A full-featured cybersecurity ecosystem for vulnerability analysis, scanning, and automation.", hero_cta: "Explore Ecosystem",
-                eco_title: "// ECOSYSTEM COMPONENTS", eco_subtitle: "Reconnaissance, scanning & traffic analysis tools",
+                eco_subtitle: "Reconnaissance, scanning & traffic analysis tools",
                 fullmute_desc: "Powerful scanner for websites, IoT devices, CVE search and sensitive files.", mitm_desc: "Proxy server for analyzing Telegram bot traffic and uncovering vulnerabilities.", cge_desc: "Passive recon, subdomain graphs and host relationships via web crawling.",
                 tgblog_desc: "Articles, vulnerability breakdowns, cybersecurity news.", tiktok_desc: "Educational cybersecurity & pentest shorts.",
-                services_title: "// PROFESSIONAL SERVICES", services_sub: "Pentesting, automation, partnership — ethical hacking & defense",
+                services_sub: "Pentesting, automation, partnership — ethical hacking & defense",
                 pentest_title: "Custom Pentesting", pentest_desc: "Professional penetration testing with detailed report.", pentest_li1: "Web apps, API", pentest_li2: "Network infrastructure", pentest_li3: "Mobile apps", pentest_li4: "Social engineering", pentest_btn: "Order Pentest",
                 auto_title: "Python Automation", auto_desc: "Scripts for business tasks, scraping, bots, integrations.", auto_li1: "Data collection & processing", auto_li2: "Custom Telegram bots", auto_li3: "API integrations", auto_li4: "Reports & analytics", auto_btn: "Order Automation",
                 partner_title: "Partnership Program", partner_desc: "Refer clients and earn 15% from each order.", partner_percent: "Your reward:", partner_desc2: "from every paid order", partner_btn: "Become a Partner",
-                contact_title: "// CONTACT", contact_tg_order: "Telegram (orders)", contact_tg_blog: "Telegram blog",
-                features_title: "// KEY FEATURES", feat1_title: "Comprehensive security", feat1_desc: "Multilayer defense via integrated tools.", feat2_title: "Process automation", feat2_desc: "Python scripts saving time and resources.", feat3_title: "Up-to-date data", feat3_desc: "Constant updates of signatures and CVE.", feat4_title: "Profit partnership", feat4_desc: "15% from each referred client.",
+                contact_tg_order: "Telegram (orders)", contact_tg_blog: "Telegram blog",
+                feat1_title: "Comprehensive security", feat1_desc: "Multilayer defense via integrated tools.", feat2_title: "Process automation", feat2_desc: "Python scripts saving time and resources.", feat3_title: "Up-to-date data", feat3_desc: "Constant updates of signatures and CVE.", feat4_title: "Profit partnership", feat4_desc: "15% from each referred client.",
                 footer_desc: "Modern hacker ecosystem for pentesting and automation.", footer_tools: "Tools", footer_services: "Services", footer_pentest: "Pentest", footer_auto: "Automation", footer_partner: "Partnership"
             }
         };
